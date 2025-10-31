@@ -1,13 +1,13 @@
 # Backwards Design Plan – Opioid Policy Impact Project
 
 **Course:** Practical Data Science (IDS 720)  
-**Team Members:** Tea Tafaj, Diwas , Austin  
+**Team Members:** Tea Tafaj, Diwas Puri, Austin Zhang
 **Date:** October 31, 2025  
 
 ---
 
 ## 1. Project Overview
-This project investigates the impact of opioid control policies enacted in Florida (2010) and Washington (2012) on opioid prescription volumes and overdose mortality rates. Using **pre–post** and **difference-in-differences (DiD)** approaches, we aim to identify and visualize the causal effects of these policies through clean, reproducible data science workflows.
+This project investigates the impact of opioid control policies enacted in Florida (2010) and Washington (2012) on opioid prescription volumes and overdose mortality rates. Using **pre–post** and **difference-in-differences (DiD)** approaches, we aim to identify and visualize the causal effects of these policies through clean, reproducible data science workflows. The analysis will focus on identifying trends, ensuring reproducibility, and providing actionable insights for policymakers.
 
 ---
 
@@ -15,11 +15,11 @@ This project investigates the impact of opioid control policies enacted in Flori
 - **Analytical Outputs**
   - Pre–post plots for both Florida and Washington showing opioid shipments and overdose deaths before and after policy implementation.
   - Difference-in-differences plots comparing treated states (FL, WA) to at least three control states each, with standard error bands.
-  - (Optional) Regression tables summarizing DiD models with both level and trend specifications.
+  - Regression tables summarizing DiD models with both level and trend specifications.
 
 - **Written Report / Policy Memo**
   - Stakeholder-friendly summary focused on the key results and implications.
-  - Appendix containing methodological details and pre–post plots.
+  - Appendix containing methodological details, pre–post plots, and regression tables.
 
 - **Reproducible Repository**
   - Modular Python scripts (no notebooks), structured workflow, and consistent code review process.
@@ -98,7 +98,6 @@ This dataset will enable both graphical and regression-based DiD analyses.
 ---
 
 ## 8. Repository Structure
-
 ```plaintext
 opioid-policy-impact/
 ├── README.md
@@ -126,5 +125,16 @@ opioid-policy-impact/
 
 ---
 
+## 10. Workflow Visualization
+```mermaid
+graph TD
+    A[Raw Data Collection] --> B[Data Cleaning]
+    B --> C[Intermediate Datasets]
+    C --> D[Unified Analysis Dataset]
+    D --> E[Visualization Development]
+    E --> F[Policy Memo Drafting]
+    F --> G[Final Deliverables]
+```
+
 ### Summary
-By following a backwards design approach, our team ensures clarity, accountability, and reproducibility at every stage—from deliverables to data integration. This plan defines what success looks like, what data we need, and who is responsible for each step in completing the Duke MIDS Opioid Policy Impact analysis.
+By following a backwards design approach, our team ensures clarity, accountability, and reproducibility at every stage, from deliverables to data integration. This plan defines what success looks like, what data we need, and who is responsible for each step in completing the Duke MIDS Opioid Policy Impact analysis.
