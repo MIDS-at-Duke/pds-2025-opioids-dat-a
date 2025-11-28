@@ -1,0 +1,9 @@
+policy_state_abbrev,group,period,n_state_years,mean_total_deaths,mean_death_rate_per_100k
+FL,control_states,post,36,402.25,14.136790659604204
+FL,control_states,pre,24,337.3333333333333,13.6899880719403
+FL,policy_state,post,6,2493.0,14.32365695334937
+FL,policy_state,pre,4,2603.25,15.779907626872369
+WA,control_states,post,24,1023.3333333333334,13.61471253981554
+WA,control_states,pre,36,901.9444444444445,12.440608305973932
+WA,policy_state,post,4,818.25,13.703247992525881
+WA,policy_state,pre,6,756.3333333333334,13.55800516453086
