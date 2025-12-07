@@ -1,0 +1,84 @@
+============================================================
+VALIDATING CURRENT PROCESSED DATA
+============================================================
+
+Florida 2010:
+  Current Total MME: 192,704,442,491
+  Current MME per capita: 10,226.8
+  Current MME per 100K: 1,022,678,324
+
+  CDC Benchmark: 729-994 per capita
+  Expected per 100K: 72,900,000 - 99,400,000
+
+  Ratio (yours/expected): 12.8x
+Error loading current data: 'charmap' codec can't encode characters in position 2-3: character maps to <undefined>
+
+============================================================
+ESTIMATING CORRECTED VALUES
+============================================================
+
+Estimated corrected values (using 5.0x correction):
+
+Florida 2010:
+  Corrected MME per capita: ~680
+  CDC Benchmark: 729-994
+  Match quality: GOOD
+
+Washington 2012:
+  Corrected MME per capita: ~290
+  CDC Benchmark: ~500-700
+
+============================================================
+FIX INSTRUCTIONS
+============================================================
+
+To fix the MME calculation, you need to:
+
+OPTION A: Re-extract the data (RECOMMENDED)
+-------------------------------------------
+1. Modify Extract_ARCOS_from_ZIP.ipynb to include BUYER_BUS_ACT column:
+   
+   columns_to_keep = [
+       'BUYER_STATE', 'BUYER_COUNTY', 'BUYER_BUS_ACT',  # Add this!
+       'TRANSACTION_DATE', 'TRANSACTION_CODE',
+       'MME', 'DOSAGE_UNIT', 'DRUG_NAME',
+       'MME_Conversion_Factor', 'Dosage_Strength',
+       'CALC_BASE_WT_IN_GM', 'DRUG_CODE', 'NDC_NO', 'Measure'
+   ]
+
+2. In Preprocessing_Prescription.ipynb, add filters:
+   
+   df_arcos = df_arcos.filter(
+       # Only sales (not returns or transfers)
+       (pl.col('TRANSACTION_CODE') == 'S') &
+       
+       # Only retail buyers (pharmacies, hospitals, practitioners)
+       (pl.col('BUYER_BUS_ACT').is_in([
+           'CHAIN PHARMACY', 'RETAIL PHARMACY', 
+           'HOSPITAL/CLINIC', 'HOSP/CLINIC-VA',
+           'PRACTITIONER', 'MLP-NURSE PRACTITIONER'
+       ])) &
+       
+       # Remove extreme outliers (per-transaction MME > 1 million is suspicious)
+       (pl.col('MME') <= 1_000_000)
+   )
+
+3. Re-run the preprocessing and build_panel.py
+
+
+OPTION B: Quick fix with current data (less accurate)
+------------------------------------------------------
+If re-extracting is not feasible, you can apply an empirical correction factor:
+
+1. In your analysis, divide MME values by 5:
+   
+   df['mme_per_100k_corrected'] = df['opioid_shipments_mme'] / df['population'] * 100_000 / 5
+
+2. Note in your documentation that values are approximate due to data limitations
+
+
+VALIDATION CHECK:
+After applying fixes, verify:
+- FL 2010 MME per capita should be ~700-1000
+- WA 2012 MME per capita should be ~500-700
+

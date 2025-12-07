@@ -1,5 +1,23 @@
-
 # Raw data files too large for GitHub (>4GB)
 arcos_all.zip
 arcos_all/
 data/raw/population/us.1969_2023.singleages.through89.90plus.adjusted.txt
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# LaTeX temporary files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Archive folder (old/unused files)
+archive/

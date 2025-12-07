@@ -2,19 +2,21 @@ import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from scipy import stats
+from statsmodels.nonparametric.smoothers_lowess import lowess
 
 POLICY_STATE = "WA"
 POLICY_YEAR = 2012
 
-
-def fit_segment(years: np.ndarray, values: np.ndarray):
-    if len(years) < 2:
-        return years, values
-    coef = np.polyfit(years, values, 1)
-    years_sorted = np.sort(years)
-    fitted = np.polyval(coef, years_sorted)
-    return years_sorted, fitted
-
+def calculate_ci(data, confidence=0.95):
+    """Calculate confidence interval for mean."""
+    n = len(data)
+    if n < 2:
+        return 0, 0
+    mean = np.mean(data)
+    se = stats.sem(data)
+    ci = se * stats.t.ppf((1 + confidence) / 2., n-1)
+    return mean - ci, mean + ci
 
 def prepost_and_did_plot(
     df: pd.DataFrame,
@@ -23,60 +25,75 @@ def prepost_and_did_plot(
     title_prefix: str,
     out_path: str,
 ):
-    state_year = (
-        df.groupby(["state_abbrev", "year"], as_index=False)[outcome]
-        .mean()
-    )
-
+    """
+    Make a single-panel DiD plot with:
+    - Consistent colors (red for treatment, blue for controls)
+    - Confidence intervals
+    - LOWESS smoothing
+    - Proper spacing to prevent title overlap
+    """
+    
+    # Aggregate to state-year means with confidence intervals
+    state_year = df.groupby(["state_abbrev", "year"])[outcome].agg(['mean', 'std', 'count']).reset_index()
+    
+    # Calculate confidence intervals
+    state_year['se'] = state_year['std'] / np.sqrt(state_year['count'])
+    state_year['ci_lower'] = state_year['mean'] - 1.96 * state_year['se']
+    state_year['ci_upper'] = state_year['mean'] + 1.96 * state_year['se']
+    
+    # Washington data
     wa = state_year[state_year["state_abbrev"] == POLICY_STATE].copy()
-    wa_pre = wa[wa["year"] < POLICY_YEAR]
-    wa_post = wa[wa["year"] >= POLICY_YEAR]
-
-    pre_years, pre_fit = fit_segment(wa_pre["year"].to_numpy(),
-                                     wa_pre[outcome].to_numpy())
-    post_years, post_fit = fit_segment(wa_post["year"].to_numpy(),
-                                       wa_post[outcome].to_numpy())
-
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4), sharey=True)
-
-    ax0 = axes[0]
-    if len(pre_years) > 0:
-        ax0.plot(pre_years, pre_fit, label="Pre-policy", linewidth=2)
-    if len(post_years) > 0:
-        ax0.plot(post_years, post_fit, label="Post-policy", linewidth=2)
-    ax0.axvline(POLICY_YEAR, linestyle="--", linewidth=1)
-    ax0.set_xlabel("Year")
-    ax0.set_ylabel(y_label)
-    ax0.set_title(f"{title_prefix}: Pre-Post (WA)")
-    ax0.legend()
-
-    ax1 = axes[1]
-    if len(pre_years) > 0:
-        ax1.plot(pre_years, pre_fit, label="WA pre", linewidth=2)
-    if len(post_years) > 0:
-        ax1.plot(post_years, post_fit, label="WA post", linewidth=2)
-
+    
+    # Controls: aggregate all non-WA states
     ctrl = state_year[state_year["state_abbrev"] != POLICY_STATE].copy()
-    ctrl_pre = ctrl[ctrl["year"] < POLICY_YEAR]
-    ctrl_post = ctrl[ctrl["year"] >= POLICY_YEAR]
-
-    c_pre_years, c_pre_fit = fit_segment(ctrl_pre["year"].to_numpy(),
-                                         ctrl_pre[outcome].to_numpy())
-    c_post_years, c_post_fit = fit_segment(ctrl_post["year"].to_numpy(),
-                                           ctrl_post[outcome].to_numpy())
-
-    if len(c_pre_years) > 0:
-        ax1.plot(c_pre_years, c_pre_fit, label="Controls pre", linestyle="--")
-    if len(c_post_years) > 0:
-        ax1.plot(c_post_years, c_post_fit, label="Controls post", linestyle="--")
-
-    ax1.axvline(POLICY_YEAR, linestyle="--", linewidth=1)
-    ax1.set_xlabel("Year")
-    ax1.set_title(f"{title_prefix}: DiD (WA vs Controls)")
-    ax1.legend()
-
-    fig.tight_layout()
-    fig.savefig(out_path, dpi=300)
+    ctrl_agg = ctrl.groupby('year').agg({
+        'mean': 'mean',
+        'ci_lower': 'mean',
+        'ci_upper': 'mean'
+    }).reset_index()
+    
+    # Create figure with extra top margin to prevent title overlap
+    fig, ax = plt.subplots(1, 1, figsize=(8, 5))
+    fig.subplots_adjust(top=0.88)  # Add space at top for title
+    
+    # Plot Washington with confidence interval
+    ax.plot(wa['year'], wa['mean'], 
+            color='#d62728', linewidth=2.5, label='Washington', zorder=3)
+    ax.fill_between(wa['year'], wa['ci_lower'], wa['ci_upper'],
+                     color='#d62728', alpha=0.2, zorder=2)
+    
+    # Plot Controls with confidence interval
+    ax.plot(ctrl_agg['year'], ctrl_agg['mean'],
+            color='#1f77b4', linewidth=2.5, linestyle='--', 
+            label='Control States (avg)', zorder=3)
+    ax.fill_between(ctrl_agg['year'], ctrl_agg['ci_lower'], ctrl_agg['ci_upper'],
+                     color='#1f77b4', alpha=0.2, zorder=2)
+    
+    # Add LOWESS smoothing
+    if len(wa) > 3:
+        wa_lowess = lowess(wa['mean'].values, wa['year'].values, frac=0.3)
+        ax.plot(wa_lowess[:, 0], wa_lowess[:, 1], 
+                color='#d62728', linewidth=1, linestyle=':', alpha=0.7, zorder=1)
+    
+    if len(ctrl_agg) > 3:
+        ctrl_lowess = lowess(ctrl_agg['mean'].values, ctrl_agg['year'].values, frac=0.3)
+        ax.plot(ctrl_lowess[:, 0], ctrl_lowess[:, 1],
+                color='#1f77b4', linewidth=1, linestyle=':', alpha=0.7, zorder=1)
+    
+    # Policy line
+    ax.axvline(POLICY_YEAR, color='black', linestyle='--', linewidth=1.5, 
+               alpha=0.7, label=f'{POLICY_YEAR} Policy')
+    
+    # Labels and formatting
+    ax.set_xlabel("Year", fontsize=11, fontweight='bold')
+    ax.set_ylabel(y_label, fontsize=11, fontweight='bold')
+    ax.set_title(title_prefix, fontsize=12, fontweight='bold', pad=20)  # pad=20 for spacing
+    ax.legend(loc='best', frameon=True, shadow=True, fontsize=10)
+    ax.grid(True, alpha=0.3, linestyle=':')
+    
+    # Tight layout with extra padding
+    fig.tight_layout(rect=[0, 0, 1, 0.96])
+    fig.savefig(out_path, dpi=300, bbox_inches='tight')
     plt.close(fig)
     print(f"Saved figure to: {out_path}")
 
@@ -90,23 +107,23 @@ def main():
     df = pd.read_parquet(data_path).copy()
     df["mme_per_100k"] = df["opioid_shipments_mme"] / df["population"] * 100_000
 
-    # Shipments
+    # Shipments figure
     out_ship = os.path.join(fig_dir, "wa_prepost_did_shipments.png")
     prepost_and_did_plot(
         df=df,
         outcome="mme_per_100k",
-        y_label="MME per 100k",
-        title_prefix="Effect of Regulations on Opioid Shipments (WA)",
+        y_label="MME per 100,000 Population",
+        title_prefix="Washington Opioid Shipments: Treatment vs. Controls (2006-2015)",
         out_path=out_ship,
     )
 
-    # Mortality
+    # Mortality figure
     out_mort = os.path.join(fig_dir, "wa_prepost_did_mortality.png")
     prepost_and_did_plot(
         df=df,
         outcome="drug_death_rate_per_100k",
-        y_label="Drug deaths per 100k",
-        title_prefix="Effect of Regulations on Mortality (WA)",
+        y_label="Drug Deaths per 100,000 Population",
+        title_prefix="Washington Drug Mortality: Treatment vs. Controls (2006-2015)",
         out_path=out_mort,
     )
 

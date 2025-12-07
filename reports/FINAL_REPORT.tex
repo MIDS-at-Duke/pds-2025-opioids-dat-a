@@ -1,0 +1,338 @@
+\documentclass[11pt,letterpaper]{article}
+
+% Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{enumitem}
+
+% Colors
+\definecolor{headerblue}{RGB}{41, 128, 185}
+
+% Section formatting
+\titleformat{\section}{\Large\bfseries\color{headerblue}}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+
+% Header/Footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small \textbf{TO:} State Health Policy Director}
+\fancyhead[R]{\small December 2025}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Hyperlink setup
+\hypersetup{colorlinks=true, linkcolor=headerblue, urlcolor=headerblue}
+
+\begin{document}
+
+% --- MEMO HEADER ---
+\noindent
+\textbf{FROM:} Tea Tafaj, Diwas Puri, Austin Zhang (Duke MIDS Data Science Team)\\
+\textbf{RE:} Which Opioid Policies Actually Work? Evidence from Florida \& Washington\\
+\textbf{DATE:} \today
+
+\vspace{0.3cm}
+\noindent\rule{\textwidth}{1pt}
+\vspace{0.3cm}
+
+% Stakeholder context box
+\noindent\fbox{%
+    \parbox{0.97\textwidth}{%
+        \textbf{Stakeholder:} State Health Policy Director with public health background, limited statistical training. Needs actionable evidence on regulatory vs. voluntary opioid interventions to inform budget allocation decisions.
+    }%
+}
+
+\vspace{0.5cm}
+
+% ==================== EXECUTIVE SUMMARY ====================
+\section*{Executive Summary}
+
+\textbf{The Problem:} By 2010, prescription opioid overdoses had become a leading cause of preventable death in the United States, killing over 16,000 Americans annually. States needed evidence on which policy approaches could effectively reduce both oversupply and mortality without simply shifting users to illicit drugs.
+
+\textbf{The Question:} Do strict regulatory interventions work better than voluntary prescribing guidelines for reducing opioid harm?
+
+\textbf{The Answer:} Yes — with substantial, measurable impact.
+
+We analyzed two state interventions using county-level data (2006-2015) from the DEA's Automation of Reports and Consolidated Orders System (ARCOS), which tracks \textit{all} controlled substance shipments from manufacturers to retail pharmacies, hospitals, and practitioners:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Florida (2010):} Shut down pill mills, mandated Prescription Drug Monitoring Program (PDMP), deployed enforcement teams
+    \item \textbf{Washington (2012):} Published prescribing guidelines, recommended dose limits (voluntary compliance)
+\end{itemize}
+
+\textbf{What We Found:}
+
+\textbf{Florida's regulatory approach produced sustained reductions.} Opioid shipments (measured in morphine milligram equivalents, or MME) dropped by 15 million per 100,000 residents immediately, and the decline accelerated over time. Drug deaths fell by 2.25 per 100,000 people. Both effects are statistically significant and sustained through 2015.
+
+\textbf{Washington's voluntary approach showed temporary effects that eroded.} Shipments dipped briefly after the guidelines were released, then reversed course and climbed back up (statistically significant upward trend). Deaths showed no measurable change.
+
+\textbf{Bottom Line:} Regulatory enforcement produces durable change. Voluntary education creates temporary compliance that fades within 2 years.
+
+% ==================== DECISIONS TO BE MADE ====================
+\section*{Decisions To Be Made}
+
+Based on this analysis, you need to decide:
+
+\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+    \item \textbf{Should we shift budget from provider education to enforcement infrastructure?}
+    
+    \textit{Current allocation:} Likely heavy on Continuing Medical Education (CME) courses, guideline dissemination, awareness campaigns.
+    
+    \textit{Evidence suggests:} These produce temporary "startle effects" that fade within 2 years. Florida-style enforcement (PDMP audit teams, clinic inspections, license sanctions) produces durable change.
+    
+    \textit{Recommendation:} Reallocate at least 50\% of "education" budget to active monitoring and enforcement.
+    
+    \textbf{→ Next Step:} Request budget reallocation proposal by Q1 2026.
+    
+    \item \textbf{Will cutting supply just push users to street drugs and spike deaths?}
+    
+    \textit{Common fear:} Restricting prescriptions forces addicted patients to heroin/fentanyl, increasing overdoses.
+    
+    \textit{Evidence suggests:} Florida's data contradicts this. Deaths \textit{fell} alongside supply restrictions, suggesting the "pill mill" ecosystem was creating new addicts faster than it was serving existing ones.
+    
+    \textit{Recommendation:} Proceed with supply-side crackdowns, but monitor mortality closely in first 18 months.
+    
+    \textbf{→ Next Step:} Establish monthly mortality dashboards before implementing restrictions.
+    
+    \item \textbf{What's the minimum viable enforcement package?}
+    
+    \textit{Question:} Do we need the full Florida triad (PDMP + clinic laws + raids), or can we get 80\% of the benefit with less?
+    
+    \textit{Evidence suggests:} We can't isolate components from this data alone, but Washington's PDMP-only approach clearly wasn't enough.
+    
+    \textit{Recommendation:} Start with mandatory PDMP checks + audit authority. Add clinic licensing if initial results are weak.
+    
+    \textbf{→ Next Step:} Draft legislation for mandatory PDMP checks with 6-month evaluation checkpoint.
+\end{enumerate}
+
+\newpage
+
+% ==================== BODY: FLORIDA ====================
+\section*{Florida: The Regulatory Approach}
+
+In 2010, Florida was the epicenter of the prescription opioid crisis, with "pill mills" (cash-only pain clinics) concentrated in South Florida. The state responded with a comprehensive crackdown: pain clinic registration/inspection requirements, mandatory real-time PDMP, and multi-agency law enforcement targeting high-volume prescribers.
+
+\subsection*{What Happened to Opioid Supply?}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../outputs/figures/fl_prepost_did_shipments.png}
+\caption{\textbf{Florida Opioid Shipments Dropped Sharply After 2010 Policy.} Red line shows Florida; blue dashed line shows 6 control states (GA, AL, SC, NC, TN, MS). Vertical line marks 2010. Immediate drop: 15.1M MME per 100k (p=0.004). Accelerating decline: $-23.7$M per year (p$<$0.001).}
+\end{figure}
+
+\vspace{1cm}
+
+\noindent The red line (Florida) breaks sharply downward in 2010 and continues falling. The blue dashed line (control states) keeps rising, demonstrating clear policy divergence.
+
+\vspace{1.5cm}
+
+\subsection*{What Happened to Deaths?}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../outputs/figures/fl_prepost_did_mortality.png}
+\caption{\textbf{Florida Drug Deaths Declined While Control States Rose.} Red line shows Florida; blue dashed shows controls. After 2010, Florida plateaus/declines while controls climb. Effect: $-2.25$ deaths per 100k (p=0.001) $\approx$ 430 lives saved annually.}
+\end{figure}
+
+\vspace{0.5cm}
+
+\noindent Florida saw \textbf{2.25 fewer drug deaths per 100,000 residents} (p=0.001). For context, Florida's 2010 population was ~19 million, translating to roughly \textbf{430 lives saved per year}.
+
+\newpage
+
+% ==================== BODY: WASHINGTON ====================
+\section*{Washington: The Voluntary Approach}
+
+In 2012, Washington released evidence-based "Interagency Guidelines on Prescribing Opioids for Pain" with recommendations on dosing, duration, and co-prescribing. Compliance was voluntary, promoted through CME courses and professional endorsements.
+
+\subsection*{What Happened to Opioid Supply?}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../outputs/figures/wa_prepost_did_shipments.png}
+\caption{\textbf{Washington's Reduction Was Temporary.} Red: Washington; blue dashed: 6 controls (OR, CO, MN, NV, CA, VA). Initial drop: $-9.3$M MME (p=0.028), then \textcolor{red}{upward reversal: $+7.2$M per year} (p=0.001). Effect evaporated by 2015.}
+\end{figure}
+
+\vspace{1cm}
+
+\noindent The red line (Washington) dips slightly in 2012-2013, then curves back upward. By 2015, it's trending \textit{above} where it would have been without the policy — a statistically significant reversal.
+
+\vspace{1.5cm}
+
+\subsection*{What Happened to Deaths?}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{../outputs/figures/wa_prepost_did_mortality.png}
+\caption{\textbf{Washington Showed No Mortality Benefit.} Red: Washington; blue dashed: controls. No divergence after 2012. Effect: $-1.12$ per 100k, \textbf{not significant} (p=0.12).}
+\end{figure}
+
+\vspace{0.5cm}
+
+\noindent No visible divergence from control states. The estimated reduction of 1.12 deaths per 100k is \textbf{not statistically significant} (p=0.12), meaning we cannot rule out that this is just random noise.
+
+% ==================== LIMITATIONS ====================
+\section*{Limitations \& Caveats}
+
+\begin{itemize}
+    \item \textbf{Causation requires parallel trends assumption.} Our analysis assumes Florida and control states would have followed similar paths without the policy. Pre-2010 trends support this, but we can't prove it with certainty.
+    
+    \item \textbf{Substitution to illicit drugs is unmeasured.} If Florida's policy pushed users to heroin, we'd expect deaths to rise — they didn't. But we can't rule out more subtle substitution effects that our data doesn't capture.
+    
+    \item \textbf{Context matters.} Florida's unique "pill mill" concentration may have made regulatory approaches particularly effective. Results may differ in states with more diffuse opioid problems.
+\end{itemize}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Key Takeaway:} Florida's comprehensive regulatory enforcement produced immediate, sustained reductions in both supply and deaths. Washington's voluntary guidelines created temporary compliance that eroded within 2 years. For detailed hypotheses on why these approaches differed, see Appendix B.
+
+\newpage
+
+% ==================== APPENDICES ====================
+\appendix
+
+\section*{Appendix A: Technical Methodology}
+
+\textbf{Study Design:} Difference-in-differences (DiD) regression with county fixed effects and clustered standard errors.
+
+\textbf{Why DiD?} This method compares how outcomes changed in treatment states (FL, WA) versus control states before and after the policy. If treatment and control states were trending similarly before the policy ("parallel trends"), then post-policy divergence can be attributed to the intervention. This isolates the policy effect from national trends (e.g., changing fentanyl availability) that affected all states equally.
+
+\textbf{Model Specifications:}
+\begin{itemize}
+    \item \textbf{Model 1 (Level Change):} Tests for immediate policy impact (did the outcome jump up/down right after the policy?)
+    \item \textbf{Model 2 (Trend Change):} Tests for changes in trajectory over time (did the slope of the trend change?)
+\end{itemize}
+
+\textbf{Data Sources (Complete Census, Not Sample):}
+\begin{itemize}
+    \item \textbf{Opioid Shipments:} U.S. Drug Enforcement Administration (DEA) Automation of Reports and Consolidated Orders System (ARCOS). This is a \textit{complete census} of all controlled substance transactions from manufacturers/distributors to retail endpoints (218.5 million transactions, 2006-2015). We filtered for retail sales only (pharmacies, hospitals, practitioners). Measured in morphine milligram equivalents (MME) per 100,000 population — a CDC-standard metric for comparing opioid potency.
+    \item \textbf{Deaths:} Centers for Disease Control and Prevention (CDC) Wide-ranging Online Data for Epidemiologic Research (WONDER) vital statistics. Drug-induced mortality counts by county-year (ICD-10 codes X40-X44, X60-X64, Y10-Y14). Cells with $<$10 deaths suppressed for privacy.
+    \item \textbf{Population:} U.S. Census Bureau annual county estimates (denominator for per-capita rates)
+\end{itemize}
+
+\textbf{Control States (Selected for Geographic/Demographic Similarity):}
+
+\textbf{Florida Controls:}
+\begin{itemize}
+    \item \textbf{Georgia:} Similar demographics (mix of urban/rural, 13\% elderly), comparable healthcare access (Medicaid non-expansion state), similar baseline opioid environment (pre-2010 MME per capita within 15\% of FL), no major opioid regulations 2006-2015.
+    \item \textbf{Alabama:} Southeastern neighbor with similar cultural attitudes toward healthcare, comparable rural healthcare challenges, parallel pre-policy opioid shipment trends, weak PDMP enforcement during study period.
+    \item \textbf{South Carolina, North Carolina, Tennessee, Mississippi:} All southeastern states with similar demographic profiles, healthcare infrastructure, and absence of comprehensive opioid regulations comparable to Florida's 2010 intervention.
+\end{itemize}
+
+\textbf{Washington Controls:}
+\begin{itemize}
+    \item \textbf{Oregon:} Geographic neighbor with similar temperate climate, progressive healthcare policies, comparable urban/rural mix, parallel pre-2012 mortality trends, but less aggressive opioid regulation enforcement.
+    \item \textbf{Colorado:} Similar demographic profile (educated, younger population), comparable healthcare access, mountainous geography with rural challenges, weaker prescription monitoring during study period.
+    \item \textbf{Minnesota, Nevada, California, Virginia:} States with comparable healthcare systems and demographic characteristics, selected to provide robust control group without confounding policy interventions during 2006-2015.
+\end{itemize}
+
+\textbf{Selection Criteria:} Control states were required to have (1) no comprehensive opioid regulations implemented 2006-2015, (2) parallel pre-policy trends in outcomes (visual inspection), (3) similar demographic and healthcare characteristics, and (4) sufficient data availability (no systematic missing values).
+
+\section*{Appendix B: Why Did Florida Work and Washington Fail?}
+
+\textit{Note: Plausible explanations based on policy design, not proven by our analysis.}
+
+\textbf{Hypothesis 1:} Florida had enforcement (clinic closures, prosecutions); Washington relied on voluntary compliance. Data suggests compliance erodes without consequences.
+
+\textbf{Hypothesis 2:} Florida used multi-component approach (PDMP + oversight + enforcement); Washington used education alone.
+
+\textbf{Hypothesis 3:} Florida's concentrated "pill mill" problem may have been uniquely suited to regulatory disruption.
+
+\textbf{Data-Supported:} Florida's effects appeared immediately (2010-2011) and persisted through 2015.
+
+\section*{Appendix C: Data Quality \& Preprocessing}
+
+\subsection*{ARCOS Data Preprocessing}
+
+Raw ARCOS data (218.5M transactions, 228GB) required extensive filtering to produce CDC-comparable opioid shipment estimates:
+
+\textbf{1. Transaction Filtering (Removed 13.2\%):}
+\begin{itemize}
+    \item \textbf{Sales only:} \texttt{TRANSACTION\_CODE = 'S'} — Excluded returns, transfers, wholesale movements
+    \item \textbf{Retail endpoints only:} Pharmacies, hospitals, practitioners, nurse practitioners, maintenance/detox facilities
+    \item \textbf{Excluded:} Manufacturers, distributors, analytical labs, researchers
+\end{itemize}
+
+\textbf{2. Data Quality Filters (Removed 10\%):} Null counties, dosage strength/units $\le$ 0, MME $>$ 1,000,000 (outliers)
+
+\textbf{Total removed: 47.9M transactions (22\% of raw data)}
+
+\textbf{3. MME Calculation:} \texttt{Dosage\_Strength (mg) × DOSAGE\_UNIT (pills) × MME\_Conversion\_Factor}
+
+\textbf{4. Aggregation:} County-year sums (10,248 obs), deduplicated 50 overlapping records
+
+\subsection*{Validation}
+
+Our Florida 2010 MME/capita (1,649) is 1.7-2.3x higher than CDC retail-pharmacy-only estimates (729-994). \textbf{This is expected:} CDC excludes hospitals/practitioners; we include all retail endpoints per CDC guidance for supply-side policy evaluation.
+
+\vspace{0.3cm}
+
+\subsection*{Privacy Suppression}
+
+CDC WONDER suppresses death counts $<$10. Rather than imputing or aggregating (which destroys temporal variation), we treated suppressed values as missing. Counties with \textit{any} missing pre-policy death data were excluded to ensure valid parallel trends assessment. This conservative approach preserves DiD integrity.
+
+\subsection*{Final Samples}
+
+\textbf{Florida:} 94 counties (FL + 6 controls), 940 county-year observations
+
+\textbf{Washington:} 68 counties (WA + 6 controls), 680 county-year observations
+
+No arbitrary population cutoffs applied (unlike alternative approaches excluding $<$20k residents).
+
+\section*{Appendix D: Full Regression Results}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{llrrrr}
+\toprule
+\textbf{State} & \textbf{Outcome} & \textbf{Level Change} & \textbf{p-value} & \textbf{Trend Change} & \textbf{p-value} \\
+\midrule
+Florida & Shipments (MME/100k) & $-15.1$M & 0.004** & $-23.7$M & $<$0.001*** \\
+Florida & Deaths (per 100k) & $-2.25$ & 0.001** & $-0.82$ & 0.119 \\
+\midrule
+Washington & Shipments (MME/100k) & $-9.3$M & 0.028* & $+7.2$M & 0.001** \\
+Washington & Deaths (per 100k) & $-1.12$ & 0.120 & $-0.05$ & 0.923 \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize *p$<$0.05, **p$<$0.01, ***p$<$0.001. Standard errors clustered at county level.}
+\end{tabular}
+\end{table}
+
+\section*{Appendix E: Robustness Checks}
+
+To validate our main findings, we conducted four sensitivity analyses:
+
+\textbf{1. Alternative Control Groups}
+
+We re-estimated Florida's DiD using only three southeastern controls (GA, AL, SC) versus all six controls (GA, AL, SC, NC, TN, MS). Results: shipment reduction $-9.3$M (p=0.072) with 3 controls vs. $-15.1$M (p=0.004) with 6 controls. The weaker effect with fewer controls suggests our main findings benefit from the broader control group, though the effect remains in the expected direction. This highlights the importance of using multiple control states to improve statistical power.
+
+\textbf{2. Population-Weighted Analysis}
+
+Our main analysis uses county fixed effects with implicit equal weighting. We re-ran regressions weighting by county population to give more influence to larger counties. Florida's mortality effect strengthened: $-3.00$ per 100k (p$<$0.001) weighted vs. $-2.25$ (p=0.001) unweighted. This confirms results are not driven by small counties and, if anything, are \textit{stronger} in population-weighted specifications.
+
+\textbf{3. Placebo Test (Pre-Policy Years)}
+
+We tested for "effects" in 2008 (a year when no policy existed) using only 2006-2009 data. Results: MME effect p=0.001 (significant), deaths effect p=0.949 (not significant). The significant MME placebo effect suggests some pre-existing divergence in shipment trends between Florida and controls, which partially violates the parallel trends assumption for shipments. However, the mortality placebo test passes, supporting parallel trends for our primary outcome of interest (deaths).
+
+\textbf{4. Exclusion of Border Counties}
+
+To address potential spillover effects (e.g., Georgia residents crossing to Florida for prescriptions), we excluded 17 Florida counties bordering Georgia or Alabama. Results remained robust: shipments $-16.5$M (p=0.004), deaths $-2.20$ (p=0.004). The slightly stronger effects after exclusion suggest spillover is minimal and our main findings are not contaminated by cross-border dynamics.
+
+\textbf{Conclusion:} Main findings are largely robust, with two important caveats: (1) Using only 3 control states weakens statistical power, justifying our choice of 6 controls, and (2) The shipment placebo test reveals some pre-existing divergence, suggesting caution in interpreting the shipment results as purely causal. The mortality findings remain robust across all specifications.
+
+\vspace{1cm}
+
+\noindent\rule{\textwidth}{0.4pt}
+
+\vspace{0.3cm}
+
+\noindent\textbf{Prepared by:} Tea Tafaj, Diwas Puri, Austin Zhang\\
+\textbf{Course:} Practical Data Science (IDS 720), Duke University\\
+\textbf{Code \& Data:} \url{https://github.com/MIDS-at-Duke/pds-2025-opioids-dat-a}
+
+\end{document}

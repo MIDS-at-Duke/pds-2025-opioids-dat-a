@@ -1,0 +1,35 @@
+
+============================================================
+RUNNING REGRESSIONS FOR FL (Policy Year: 2010)
+============================================================
+
+Outcome: Opioid Shipments (MME per 100k)
+  Model 1 Failed: The weights and list don't have the same length.
+  Model 2 Failed: The weights and list don't have the same length.
+
+Outcome: Drug Deaths (per 100k)
+  Model 1 Failed: The weights and list don't have the same length.
+  Model 2 Failed: The weights and list don't have the same length.
+
+============================================================
+RUNNING REGRESSIONS FOR WA (Policy Year: 2012)
+============================================================
+
+Outcome: Opioid Shipments (MME per 100k)
+  Model 1 (Levels) DiD Coeff: -9300348.36 (p=0.028)
+  Model 2 Failed: 'year_centered:treated:post'
+
+Outcome: Drug Deaths (per 100k)
+  Model 1 Failed: The weights and list don't have the same length.
+  Model 2 Failed: The weights and list don't have the same length.
+
+================================================================================
+FINAL REGRESSION RESULTS SUMMARY
+================================================================================
+State                         Outcome  M1_DiD_Level  M1_Pval  M2_DiD_Slope  M2_Pval
+   FL Opioid Shipments (MME per 100k)           NaN      NaN           NaN      NaN
+   FL          Drug Deaths (per 100k)           NaN      NaN           NaN      NaN
+   WA Opioid Shipments (MME per 100k)  -9300348.360    0.028           NaN      NaN
+   WA          Drug Deaths (per 100k)           NaN      NaN           NaN      NaN
+
+Results saved to: outputs\tables\did_regression_results.csv
