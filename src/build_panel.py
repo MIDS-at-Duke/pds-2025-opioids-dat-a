@@ -43,8 +43,8 @@ def build_panel(
     - Left-join drug overdose deaths
     - Left-join opioid shipments (MME & total pills)
     - Compute drug overdose death rate per 100k
-    - Build Florida + controls analysis panel and drop counties with NA deaths in pre-period
-    - Build Washington + controls analysis panel and drop counties with NA deaths in pre-period
+    - Build Florida + controls analysis panel and drop counties with ANY missing deaths (any year)
+    - Build Washington + controls analysis panel and drop counties with ANY missing deaths (any year)
     """
 
     deaths_path = DATA_PROCESSED_DIR / "vital_stats_deaths_2006_2015.parquet"
@@ -79,7 +79,7 @@ def build_panel(
         panel["drug_deaths"] / panel["population"] * 100000
     )
 
-    # some quick diagnostics
+    # some quick diagnostics on full panel
     print("Merged panel created")
     print("   shape:", panel.shape)
     print("   columns:", list(panel.columns), "\n")
@@ -101,27 +101,28 @@ def build_panel(
     fl_states = ["FL", "GA", "AL", "SC", "NC", "TN", "MS"]
 
     fl_panel = panel[panel["state_abbrev"].isin(fl_states)].copy()
-    fl_panel["is_pre"] = (fl_panel["year"] < FL_POLICY_YEAR).astype(int)
 
-    # counties with ANY missing deaths in pre-period
-    bad_fl_fips = (
-        fl_panel[fl_panel["is_pre"] == 1]
-        .groupby("fips")["drug_deaths"]
-        .apply(lambda x: x.isna().any())
+    # Drop any county (fips) that has missing drug_deaths in ANY year (2006–2015)
+    fl_bad_fips = fl_panel.groupby("fips")["drug_deaths"].apply(
+        lambda x: x.isna().any()
     )
-    bad_fl_fips = bad_fl_fips[bad_fl_fips].index.tolist()
+    fl_bad_fips = fl_bad_fips[fl_bad_fips].index.tolist()
 
     print(
-        "\n Number of FL-analysis counties DROPPED due to NA in pre-period:",
-        len(bad_fl_fips),
+        "\nNumber of FL-analysis counties DROPPED due to ANY NA in drug_deaths (any year):",
+        len(fl_bad_fips),
     )
 
-    fl_panel_clean = fl_panel[~fl_panel["fips"].isin(bad_fl_fips)].copy()
-    print(" Final FL panel shape:", fl_panel_clean.shape)
+    fl_panel_clean = fl_panel[~fl_panel["fips"].isin(fl_bad_fips)].copy()
+
+    # is_pre flag still useful for some analyses
+    fl_panel_clean["is_pre"] = (fl_panel_clean["year"] < FL_POLICY_YEAR).astype(int)
+
+    print("Final FL panel shape:", fl_panel_clean.shape)
 
     fl_out = DATA_PROCESSED_DIR / "fl_panel_clean.parquet"
     fl_panel_clean.to_parquet(fl_out, index=False)
-    print(f" Saved clean Florida panel to: {fl_out}")
+    print(f"Saved clean Florida panel to: {fl_out}")
 
     # =====================================================
     # WASHINGTON ANALYSIS PANEL (WA + control states)
@@ -130,21 +131,22 @@ def build_panel(
     wa_states = ["WA", "OR", "CO", "MN", "NV", "CA", "VA"]
 
     wa_panel = panel[panel["state_abbrev"].isin(wa_states)].copy()
-    wa_panel["is_pre"] = (wa_panel["year"] < WA_POLICY_YEAR).astype(int)
 
-    bad_wa_fips = (
-        wa_panel[wa_panel["is_pre"] == 1]
-        .groupby("fips")["drug_deaths"]
-        .apply(lambda x: x.isna().any())
+    # Drop any county (fips) that has missing drug_deaths in ANY year (2006–2015)
+    wa_bad_fips = wa_panel.groupby("fips")["drug_deaths"].apply(
+        lambda x: x.isna().any()
     )
-    bad_wa_fips = bad_wa_fips[bad_wa_fips].index.tolist()
+    wa_bad_fips = wa_bad_fips[wa_bad_fips].index.tolist()
 
     print(
-        "\n Number of WA-analysis counties DROPPED due to NA in pre-period:",
-        len(bad_wa_fips),
+        "\nNumber of WA-analysis counties DROPPED due to ANY NA in drug_deaths (any year):",
+        len(wa_bad_fips),
     )
 
-    wa_panel_clean = wa_panel[~wa_panel["fips"].isin(bad_wa_fips)].copy()
+    wa_panel_clean = wa_panel[~wa_panel["fips"].isin(wa_bad_fips)].copy()
+
+    wa_panel_clean["is_pre"] = (wa_panel_clean["year"] < WA_POLICY_YEAR).astype(int)
+
     print("✅ Final WA panel shape:", wa_panel_clean.shape)
 
     wa_out = DATA_PROCESSED_DIR / "wa_panel_clean.parquet"
