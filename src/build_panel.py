@@ -43,8 +43,11 @@ def build_panel(
     - Left-join drug overdose deaths
     - Left-join opioid shipments (MME & total pills)
     - Compute drug overdose death rate per 100k
-    - Build Florida + controls analysis panel and drop counties with ANY missing deaths (any year)
-    - Build Washington + controls analysis panel and drop counties with ANY missing deaths (any year)
+    - Build Florida + controls analysis panel:
+        * Drop counties with ANY missing deaths (any year, pre or post)
+        * Then drop YEAR-LEVEL rows with missing MME
+    - Build Washington + controls analysis panel:
+        * Same rules as Florida
     """
 
     deaths_path = DATA_PROCESSED_DIR / "vital_stats_deaths_2006_2015.parquet"
@@ -89,10 +92,10 @@ def build_panel(
         panel["opioid_shipments_mme"].notna().sum(),
     )
 
-    # save full panel
+    # save full panel (unaltered) in case anything else uses it
     output_path.parent.mkdir(parents=True, exist_ok=True)
     panel.to_parquet(output_path, index=False)
-    print(f"\n💾 Saved merged panel to {output_path}")
+    print(f"\n💾 Saved merged full panel to {output_path}")
 
     # =====================================================
     # FLORIDA ANALYSIS PANEL (FL + control states)
@@ -101,28 +104,37 @@ def build_panel(
     fl_states = ["FL", "GA", "AL", "SC", "NC", "TN", "MS"]
 
     fl_panel = panel[panel["state_abbrev"].isin(fl_states)].copy()
+    fl_panel["is_pre"] = (fl_panel["year"] < FL_POLICY_YEAR).astype(int)
 
-    # Drop any county (fips) that has missing drug_deaths in ANY year (2006–2015)
-    fl_bad_fips = fl_panel.groupby("fips")["drug_deaths"].apply(
+    # ---- 1) Drop counties with ANY missing deaths (any year) ----
+    fl_bad_death_fips = fl_panel.groupby("fips")["drug_deaths"].apply(
         lambda x: x.isna().any()
     )
-    fl_bad_fips = fl_bad_fips[fl_bad_fips].index.tolist()
+    fl_bad_death_fips = fl_bad_death_fips[fl_bad_death_fips].index.tolist()
 
     print(
-        "\nNumber of FL-analysis counties DROPPED due to ANY NA in drug_deaths (any year):",
-        len(fl_bad_fips),
+        "\n[FL] Number of counties DROPPED due to ANY NA in drug_deaths (2006–2015):",
+        len(fl_bad_death_fips),
     )
 
-    fl_panel_clean = fl_panel[~fl_panel["fips"].isin(fl_bad_fips)].copy()
+    fl_panel_clean = fl_panel[~fl_panel["fips"].isin(fl_bad_death_fips)].copy()
 
-    # is_pre flag still useful for some analyses
-    fl_panel_clean["is_pre"] = (fl_panel_clean["year"] < FL_POLICY_YEAR).astype(int)
+    # ---- 2) Drop YEAR-LEVEL rows with missing MME (keep county, lose year) ----
+    before_rows = fl_panel_clean.shape[0]
+    fl_panel_clean = fl_panel_clean[
+        fl_panel_clean["opioid_shipments_mme"].notna()
+    ].copy()
+    after_rows = fl_panel_clean.shape[0]
 
-    print("Final FL panel shape:", fl_panel_clean.shape)
+    print(
+        "[FL] Year-level rows dropped due to NA opioid_shipments_mme:",
+        before_rows - after_rows,
+    )
+    print("[FL] Final FL panel shape:", fl_panel_clean.shape)
 
     fl_out = DATA_PROCESSED_DIR / "fl_panel_clean.parquet"
     fl_panel_clean.to_parquet(fl_out, index=False)
-    print(f"Saved clean Florida panel to: {fl_out}")
+    print(f"[FL] Saved clean Florida analysis panel to: {fl_out}")
 
     # =====================================================
     # WASHINGTON ANALYSIS PANEL (WA + control states)
@@ -131,27 +143,37 @@ def build_panel(
     wa_states = ["WA", "OR", "CO", "MN", "NV", "CA", "VA"]
 
     wa_panel = panel[panel["state_abbrev"].isin(wa_states)].copy()
+    wa_panel["is_pre"] = (wa_panel["year"] < WA_POLICY_YEAR).astype(int)
 
-    # Drop any county (fips) that has missing drug_deaths in ANY year (2006–2015)
-    wa_bad_fips = wa_panel.groupby("fips")["drug_deaths"].apply(
+    # ---- 1) Drop counties with ANY missing deaths (any year) ----
+    wa_bad_death_fips = wa_panel.groupby("fips")["drug_deaths"].apply(
         lambda x: x.isna().any()
     )
-    wa_bad_fips = wa_bad_fips[wa_bad_fips].index.tolist()
+    wa_bad_death_fips = wa_bad_death_fips[wa_bad_death_fips].index.tolist()
 
     print(
-        "\nNumber of WA-analysis counties DROPPED due to ANY NA in drug_deaths (any year):",
-        len(wa_bad_fips),
+        "\n[WA] Number of counties DROPPED due to ANY NA in drug_deaths (2006–2015):",
+        len(wa_bad_death_fips),
     )
 
-    wa_panel_clean = wa_panel[~wa_panel["fips"].isin(wa_bad_fips)].copy()
+    wa_panel_clean = wa_panel[~wa_panel["fips"].isin(wa_bad_death_fips)].copy()
 
-    wa_panel_clean["is_pre"] = (wa_panel_clean["year"] < WA_POLICY_YEAR).astype(int)
+    # ---- 2) Drop YEAR-LEVEL rows with missing MME (keep county, lose year) ----
+    before_rows_wa = wa_panel_clean.shape[0]
+    wa_panel_clean = wa_panel_clean[
+        wa_panel_clean["opioid_shipments_mme"].notna()
+    ].copy()
+    after_rows_wa = wa_panel_clean.shape[0]
 
-    print("✅ Final WA panel shape:", wa_panel_clean.shape)
+    print(
+        "[WA] Year-level rows dropped due to NA opioid_shipments_mme:",
+        before_rows_wa - after_rows_wa,
+    )
+    print("[WA] Final WA panel shape:", wa_panel_clean.shape)
 
     wa_out = DATA_PROCESSED_DIR / "wa_panel_clean.parquet"
     wa_panel_clean.to_parquet(wa_out, index=False)
-    print(f"💾 Saved clean Washington panel to: {wa_out}")
+    print(f"[WA] Saved clean Washington analysis panel to: {wa_out}")
 
 
 if __name__ == "__main__":
