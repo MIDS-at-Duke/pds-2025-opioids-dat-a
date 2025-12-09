@@ -71,7 +71,7 @@ We analyzed two state interventions using county-level data (2006-2015) from the
 
 \textbf{Washington's voluntary approach showed temporary effects that eroded.} Shipments dipped briefly after the guidelines were released, then reversed course and climbed back up (statistically significant upward trend). Deaths showed no measurable change.
 
-\textbf{Bottom Line:} Regulatory enforcement produces durable change. Voluntary education creates temporary compliance that fades within 2 years.
+\textbf{Bottom Line:} All estimates compare Florida and Washington to similar ‘no-policy’ states over the same years, so we can separate policy effects from broader forces like national prescribing trends, recessions, or changing fentanyl supply. Regulatory enforcement produces durable change. Voluntary education creates temporary compliance that fades within 2 years.
 
 % ==================== DECISIONS TO BE MADE ====================
 \section*{Decisions To Be Made}
@@ -180,8 +180,8 @@ In 2012, Washington released evidence-based "Interagency Guidelines on Prescribi
 \section*{Limitations \& Caveats}
 
 \begin{itemize}
-    \item \textbf{Causation requires parallel trends assumption.} Our analysis assumes Florida and control states would have followed similar paths without the policy. Pre-2010 trends support this, but we can't prove it with certainty.
-    
+    \item \textbf{Causation requires a strong assumption about trends.} Our analysis assumes that, in the absence of policy, Florida (or Washington) and their control states would have continued to move in parallel. The DiD design helps difference out common shocks that hit everyone at once (e.g., national guidelines, changes in fentanyl supply, recessions), but it \textit{does not} remove confounders that affect Florida differently from controls in the same years (for example, a Florida-only treatment expansion, enforcement change, or unrelated law that coincides with the policy window).
+
     \item \textbf{Substitution to illicit drugs is unmeasured.} If Florida's policy pushed users to heroin, we'd expect deaths to rise — they didn't. But we can't rule out more subtle substitution effects that our data doesn't capture.
     
     \item \textbf{Context matters.} Florida's unique "pill mill" concentration may have made regulatory approaches particularly effective. Results may differ in states with more diffuse opioid problems.
@@ -200,7 +200,7 @@ In 2012, Washington released evidence-based "Interagency Guidelines on Prescribi
 
 \textbf{Study Design:} Difference-in-differences (DiD) regression with county fixed effects and clustered standard errors.
 
-\textbf{Why DiD?} This method compares how outcomes changed in treatment states (FL, WA) versus control states before and after the policy. If treatment and control states were trending similarly before the policy ("parallel trends"), then post-policy divergence can be attributed to the intervention. This isolates the policy effect from national trends (e.g., changing fentanyl availability) that affected all states equally.
+\textbf{Why DiD?} This method compares how outcomes changed in treatment states (FL, WA) versus control states before and after the policy. If treatment and control states were trending similarly before the policy ("parallel trends"), then post-policy divergence can be attributed to the intervention. This isolates the policy effect from national trends (e.g., changing fentanyl availability) that affected all states equally. However, DiD still cannot rule out all confounding; if Florida experienced other Florida-only changes at the same time as the pill-mill crackdown, those could still bias our estimates.
 
 \textbf{Model Specifications:}
 \begin{itemize}
