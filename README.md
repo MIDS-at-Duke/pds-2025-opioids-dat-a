@@ -3,7 +3,7 @@
 [![Duke MIDS](https://img.shields.io/badge/Duke-MIDS%20IDS%20720-012169?style=flat-square)](https://datascience.duke.edu/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-> **TL;DR:** Difference-in-differences analysis revealing that Florida's 2010 regulatory crackdown reduced opioid deaths by 2.25 per 100k (≈430 lives/year), while Washington's 2012 voluntary guidelines showed temporary effects that reversed within 2 years.
+> **TL;DR:** Difference-in-differences analysis revealing that Florida's 2010 regulatory crackdown reduced opioid deaths by 2.36 per 100k (≈450 lives/year), while Washington's 2012 voluntary guidelines showed temporary effects that reversed within 2 years.
 
 ---
 
@@ -28,15 +28,15 @@ This repository contains a comprehensive data science analysis evaluating the ef
 
 | Outcome | Effect Size | Statistical Significance | Interpretation |
 |---------|-------------|-------------------------|----------------|
-| **Opioid Shipments** | -15.1M MME/100k (immediate)<br>-23.7M MME/year (trend) | p=0.004<br>p<0.001 | Sharp drop, accelerating decline |
-| **Drug Deaths** | -2.25 per 100k | p=0.001 | ≈430 lives saved annually |
+| **Opioid Shipments** | -15.4M MME/100k (immediate)<br>-25.6M MME/year (trend) | p=0.006<br>p<0.001 | Sharp drop, accelerating decline |
+| **Drug Deaths** | -2.36 per 100k | p=0.001 | ≈450 lives saved annually |
 
 ### Washington's Voluntary Approach ⚠️ **Limited Effectiveness**
 
 | Outcome | Effect Size | Statistical Significance | Interpretation |
 |---------|-------------|-------------------------|----------------|
-| **Opioid Shipments** | -9.3M MME/100k (initial)<br>**+7.2M MME/year (reversal)** | p=0.028<br>p=0.001 | Temporary dip, then upward reversal |
-| **Drug Deaths** | -1.12 per 100k | p=0.12 (n.s.) | No detectable impact |
+| **Opioid Shipments** | -8.1M MME/100k (initial)<br>**+7.9M MME/year (reversal)** | p=0.046<br>p<0.001 | Temporary dip, then upward reversal |
+| **Drug Deaths** | -1.18 per 100k | p=0.10 (n.s.) | No detectable impact |
 
 ### Bottom Line
 
@@ -72,8 +72,8 @@ pds-2025-opioids-dat-a/
 ├── data/
 │   ├── raw/                    # Original data (not in repo - too large)
 │   └── processed/              # Analysis-ready datasets
-│       ├── fl_panel_clean.parquet  (940 rows, 94 counties)
-│       └── wa_panel_clean.parquet  (680 rows, 68 counties)
+│       ├── fl_panel_clean.parquet  (840 rows, 84 counties)
+│       └── wa_panel_clean.parquet  (670 rows, 67 counties)
 │
 ├── outputs/
 │   ├── figures/                # DiD plots with CI
@@ -171,9 +171,9 @@ python analysis/robustness_checks.py
 | Test | Result | Interpretation |
 |------|--------|----------------|
 | **Alternative Control Groups** | Effect weaker with 3 vs 6 controls | Justifies using broader control group |
-| **Population Weighting** | Effect strengthens (−3.00 vs −2.25) | Not driven by small counties |
+| **Population Weighting** | Effect strengthens (−3.05 vs −2.36) | Not driven by small counties |
 | **Placebo Test (2008)** | Deaths: no effect; Shipments: pre-trend | Mortality findings robust; shipments caveat |
-| **Border Exclusion** | Effects remain robust (−2.20) | No spillover contamination |
+| **Border Exclusion** | Effects remain robust (−2.33) | No spillover contamination |
 
 **Conclusion:** Mortality findings are robust across all specifications. Shipment results should be interpreted with caution due to pre-existing trends.
 
@@ -221,4 +221,4 @@ MIT License - See [LICENSE](LICENSE) for details
 ---
 
 **Last Updated:** December 2024  
-**Status:** ✅ Final Submission Ready
+

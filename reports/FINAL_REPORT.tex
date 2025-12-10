@@ -67,7 +67,7 @@ We analyzed two state interventions using county-level data (2006-2015) from the
 
 \textbf{What We Found:}
 
-\textbf{Florida's regulatory approach produced sustained reductions.} Opioid shipments (measured in morphine milligram equivalents, or MME) dropped by 15 million per 100,000 residents immediately, and the decline accelerated over time. Drug deaths fell by 2.25 per 100,000 people. Both effects are statistically significant and sustained through 2015.
+\textbf{Florida's regulatory approach produced sustained reductions.} Opioid shipments (measured in morphine milligram equivalents, or MME) dropped by 15.4 million per 100,000 residents immediately, and the decline accelerated over time. Drug deaths fell by 2.36 per 100,000 people. Both effects are statistically significant and sustained through 2015.
 
 \textbf{Washington's voluntary approach showed temporary effects that eroded.} Shipments dipped briefly after the guidelines were released, then reversed course and climbed back up (statistically significant upward trend). Deaths showed no measurable change.
 
@@ -122,7 +122,7 @@ In 2010, Florida was the epicenter of the prescription opioid crisis, with "pill
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{../outputs/figures/fl_prepost_did_shipments.png}
-\caption{\textbf{Florida Opioid Shipments Dropped Sharply After 2010 Policy.} Red line shows Florida; blue dashed line shows 6 control states (GA, AL, SC, NC, TN, MS). Vertical line marks 2010. Immediate drop: 15.1M MME per 100k (p=0.004). Accelerating decline: $-23.7$M per year (p$<$0.001).}
+\caption{\textbf{Florida Opioid Shipments Dropped Sharply After 2010 Policy.} Red line shows Florida; blue dashed line shows 6 control states (GA, AL, SC, NC, TN, MS). Vertical line marks 2010. Immediate drop: 15.4M MME per 100k (p=0.006). Accelerating decline: $-25.6$M per year (p$<$0.001).}
 \end{figure}
 
 \vspace{1cm}
@@ -136,12 +136,12 @@ In 2010, Florida was the epicenter of the prescription opioid crisis, with "pill
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{../outputs/figures/fl_prepost_did_mortality.png}
-\caption{\textbf{Florida Drug Deaths Declined While Control States Rose.} Red line shows Florida; blue dashed shows controls. After 2010, Florida plateaus/declines while controls climb. Effect: $-2.25$ deaths per 100k (p=0.001) $\approx$ 430 lives saved annually.}
+\caption{\textbf{Florida Drug Deaths Declined While Control States Rose.} Red line shows Florida; blue dashed shows controls. After 2010, Florida plateaus/declines while controls climb. Effect: $-2.36$ deaths per 100k (p=0.001) $\approx$ 450 lives saved annually.}
 \end{figure}
 
 \vspace{0.5cm}
 
-\noindent Florida saw \textbf{2.25 fewer drug deaths per 100,000 residents} (p=0.001). For context, Florida's 2010 population was ~19 million, translating to roughly \textbf{430 lives saved per year}.
+\noindent Florida saw \textbf{2.36 fewer drug deaths per 100,000 residents} (p=0.001). For context, Florida's 2010 population was ~19 million, translating to roughly \textbf{450 lives saved per year}.
 
 \newpage
 
@@ -155,7 +155,7 @@ In 2012, Washington released evidence-based "Interagency Guidelines on Prescribi
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{../outputs/figures/wa_prepost_did_shipments.png}
-\caption{\textbf{Washington's Reduction Was Temporary.} Red: Washington; blue dashed: 6 controls (OR, CO, MN, NV, CA, VA). Initial drop: $-9.3$M MME (p=0.028), then \textcolor{red}{upward reversal: $+7.2$M per year} (p=0.001). Effect evaporated by 2015.}
+\caption{\textbf{Washington's Reduction Was Temporary.} Red: Washington; blue dashed: 6 controls (OR, CO, MN, NV, CA, VA). Initial drop: $-8.1$M MME (p=0.046), then \textcolor{red}{upward reversal: $+7.9$M per year} (p$<$0.001). Effect evaporated by 2015.}
 \end{figure}
 
 \vspace{1cm}
@@ -274,13 +274,13 @@ Our Florida 2010 MME/capita (1,649) is 1.7-2.3x higher than CDC retail-pharmacy-
 
 \subsection*{Privacy Suppression}
 
-CDC WONDER suppresses death counts $<$10. Rather than imputing or aggregating (which destroys temporal variation), we treated suppressed values as missing. Counties with \textit{any} missing pre-policy death data were excluded to ensure valid parallel trends assessment. This conservative approach preserves DiD integrity.
+CDC WONDER suppresses death counts $<$10. Rather than imputing or aggregating (which destroys temporal variation), we treated suppressed values as missing. Counties with \textit{any} missing death data across the full study period (2006-2015) were excluded to ensure consistent county pools for pre/post comparison. This conservative approach preserves DiD integrity.
 
 \subsection*{Final Samples}
 
-\textbf{Florida:} 94 counties (FL + 6 controls), 940 county-year observations
+\textbf{Florida:} 84 counties (FL + 6 controls), 840 county-year observations
 
-\textbf{Washington:} 68 counties (WA + 6 controls), 680 county-year observations
+\textbf{Washington:} 67 counties (WA + 6 controls), 670 county-year observations
 
 No arbitrary population cutoffs applied (unlike alternative approaches excluding $<$20k residents).
 
@@ -293,11 +293,11 @@ No arbitrary population cutoffs applied (unlike alternative approaches excluding
 \toprule
 \textbf{State} & \textbf{Outcome} & \textbf{Level Change} & \textbf{p-value} & \textbf{Trend Change} & \textbf{p-value} \\
 \midrule
-Florida & Shipments (MME/100k) & $-15.1$M & 0.004** & $-23.7$M & $<$0.001*** \\
-Florida & Deaths (per 100k) & $-2.25$ & 0.001** & $-0.82$ & 0.119 \\
+Florida & Shipments (MME/100k) & $-15.4$M & 0.006** & $-25.6$M & $<$0.001*** \\
+Florida & Deaths (per 100k) & $-2.36$ & 0.001** & $-1.11$ & 0.022* \\
 \midrule
-Washington & Shipments (MME/100k) & $-9.3$M & 0.028* & $+7.2$M & 0.001** \\
-Washington & Deaths (per 100k) & $-1.12$ & 0.120 & $-0.05$ & 0.923 \\
+Washington & Shipments (MME/100k) & $-8.1$M & 0.046* & $+7.9$M & $<$0.001*** \\
+Washington & Deaths (per 100k) & $-1.18$ & 0.102 & $-0.05$ & 0.928 \\
 \bottomrule
 \multicolumn{6}{l}{\footnotesize *p$<$0.05, **p$<$0.01, ***p$<$0.001. Standard errors clustered at county level.}
 \end{tabular}
@@ -309,19 +309,19 @@ To validate our main findings, we conducted four sensitivity analyses:
 
 \textbf{1. Alternative Control Groups}
 
-We re-estimated Florida's DiD using only three southeastern controls (GA, AL, SC) versus all six controls (GA, AL, SC, NC, TN, MS). Results: shipment reduction $-9.3$M (p=0.072) with 3 controls vs. $-15.1$M (p=0.004) with 6 controls. The weaker effect with fewer controls suggests our main findings benefit from the broader control group, though the effect remains in the expected direction. This highlights the importance of using multiple control states to improve statistical power.
+We re-estimated Florida's DiD using only three southeastern controls (GA, AL, SC) versus all six controls (GA, AL, SC, NC, TN, MS). Results: shipment reduction $-9.9$M (p=0.070) with 3 controls vs. $-15.4$M (p=0.006) with 6 controls. The weaker effect with fewer controls suggests our main findings benefit from the broader control group, though the effect remains in the expected direction. This highlights the importance of using multiple control states to improve statistical power.
 
 \textbf{2. Population-Weighted Analysis}
 
-Our main analysis uses county fixed effects with implicit equal weighting. We re-ran regressions weighting by county population to give more influence to larger counties. Florida's mortality effect strengthened: $-3.00$ per 100k (p$<$0.001) weighted vs. $-2.25$ (p=0.001) unweighted. This confirms results are not driven by small counties and, if anything, are \textit{stronger} in population-weighted specifications.
+Our main analysis uses county fixed effects with implicit equal weighting. We re-ran regressions weighting by county population to give more influence to larger counties. Florida's mortality effect strengthened: $-3.05$ per 100k (p$<$0.001) weighted vs. $-2.36$ (p=0.001) unweighted. This confirms results are not driven by small counties and, if anything, are \textit{stronger} in population-weighted specifications.
 
 \textbf{3. Placebo Test (Pre-Policy Years)}
 
-We tested for "effects" in 2008 (a year when no policy existed) using only 2006-2009 data. Results: MME effect p=0.001 (significant), deaths effect p=0.949 (not significant). The significant MME placebo effect suggests some pre-existing divergence in shipment trends between Florida and controls, which partially violates the parallel trends assumption for shipments. However, the mortality placebo test passes, supporting parallel trends for our primary outcome of interest (deaths).
+We tested for "effects" in 2008 (a year when no policy existed) using only 2006-2009 data. Results: MME effect p=0.001 (significant), deaths effect p=0.314 (not significant). The significant MME placebo effect suggests some pre-existing divergence in shipment trends between Florida and controls, which partially violates the parallel trends assumption for shipments. However, the mortality placebo test passes, supporting parallel trends for our primary outcome of interest (deaths).
 
 \textbf{4. Exclusion of Border Counties}
 
-To address potential spillover effects (e.g., Georgia residents crossing to Florida for prescriptions), we excluded 17 Florida counties bordering Georgia or Alabama. Results remained robust: shipments $-16.5$M (p=0.004), deaths $-2.20$ (p=0.004). The slightly stronger effects after exclusion suggest spillover is minimal and our main findings are not contaminated by cross-border dynamics.
+To address potential spillover effects (e.g., Georgia residents crossing to Florida for prescriptions), we excluded 17 Florida counties bordering Georgia or Alabama. Results remained robust: shipments $-16.7$M (p=0.006), deaths $-2.33$ (p=0.003). The slightly stronger effects after exclusion suggest spillover is minimal and our main findings are not contaminated by cross-border dynamics.
 
 \textbf{Conclusion:} Main findings are largely robust, with two important caveats: (1) Using only 3 control states weakens statistical power, justifying our choice of 6 controls, and (2) The shipment placebo test reveals some pre-existing divergence, suggesting caution in interpreting the shipment results as purely causal. The mortality findings remain robust across all specifications.
 
