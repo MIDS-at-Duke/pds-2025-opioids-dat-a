@@ -72,8 +72,8 @@ pds-2025-opioids-dat-a/
 ├── data/
 │   ├── raw/                    # Original data (not in repo - too large)
 │   └── processed/              # Analysis-ready datasets
-│       ├── fl_panel_clean.parquet  (940 rows, 94 counties)
-│       └── wa_panel_clean.parquet  (680 rows, 68 counties)
+│       ├── fl_panel_clean.parquet  (830 rows, 83 counties)
+│       └── wa_panel_clean.parquet  (670 rows, 67 counties)
 │
 ├── outputs/
 │   ├── figures/                # DiD plots with CI
