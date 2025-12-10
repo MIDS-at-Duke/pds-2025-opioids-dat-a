@@ -10,6 +10,7 @@
 \usepackage{fancyhdr}
 \usepackage{float}
 \usepackage{enumitem}
+\usepackage{amsmath}
 
 % Colors
 \definecolor{headerblue}{RGB}{41, 128, 185}
@@ -272,17 +273,32 @@ Our Florida 2010 MME/capita (1,649) is 1.7-2.3x higher than CDC retail-pharmacy-
 
 \vspace{0.3cm}
 
-\subsection*{Privacy Suppression}
+\subsection*{Handling Privacy Suppression}
 
-CDC WONDER suppresses death counts $<$10. Rather than imputing or aggregating (which destroys temporal variation), we treated suppressed values as missing. Counties with \textit{any} missing death data across the full study period (2006-2015) were excluded to ensure consistent county pools for pre/post comparison. This conservative approach preserves DiD integrity.
+CDC WONDER suppresses death counts $<$10 for privacy protection. Rather than dropping counties with suppressed values (which would severely limit sample size), we implemented an imputation approach:
+
+\begin{enumerate}
+    \item \textbf{Calculated average death rate} from counties with observed deaths: 15.2 deaths per 100,000 population
+    \item \textbf{Predicted expected deaths} for suppressed counties: expected = rate $\times$ population / 100,000
+    \item \textbf{Constrained to integers [0, 9]} since suppressed cells by definition contain $<$10 deaths
+\end{enumerate}
+
+This approach preserves county coverage while respecting the known upper bound of suppressed values. We flag all imputed observations for sensitivity analysis. Results are robust to both imputation and complete-case analysis (see Appendix E).
 
 \subsection*{Final Samples}
 
-\textbf{Florida:} 84 counties (FL + 6 controls), 840 county-year observations
+\textbf{Florida:} 608 counties (FL + 6 controls), 6,042 county-year observations (4,491 imputed)
 
-\textbf{Washington:} 67 counties (WA + 6 controls), 670 county-year observations
+\textbf{Washington:} 427 counties (WA + 6 controls), 4,186 county-year observations (3,181 imputed)
 
-No arbitrary population cutoffs applied (unlike alternative approaches excluding $<$20k residents).
+This represents a 7x increase in sample size compared to dropping counties with any suppressed values, while maintaining analytical integrity. Figure~\ref{fig:pop_vs_deaths} illustrates the relationship between population and deaths used for imputation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{../outputs/figures/population_vs_deaths.png}
+\caption{\textbf{Population vs Deaths: Basis for Imputation.} Left: Strong correlation (R$^2$=0.82) between county population and observed deaths enables prediction of suppressed values. Red dashed line marks the CDC suppression threshold (10 deaths). Right: Imputed values (orange) fill the gap below the threshold, constrained to integers [0, 9].}
+\label{fig:pop_vs_deaths}
+\end{figure}
 
 \section*{Appendix D: Full Regression Results}
 
@@ -324,6 +340,10 @@ We tested for "effects" in 2008 (a year when no policy existed) using only 2006-
 To address potential spillover effects (e.g., Georgia residents crossing to Florida for prescriptions), we excluded 17 Florida counties bordering Georgia or Alabama. Results remained robust: shipments $-16.7$M (p=0.006), deaths $-2.33$ (p=0.003). The slightly stronger effects after exclusion suggest spillover is minimal and our main findings are not contaminated by cross-border dynamics.
 
 \textbf{Conclusion:} Main findings are largely robust, with two important caveats: (1) Using only 3 control states weakens statistical power, justifying our choice of 6 controls, and (2) The shipment placebo test reveals some pre-existing divergence, suggesting caution in interpreting the shipment results as purely causal. The mortality findings remain robust across all specifications.
+
+\textbf{5. Imputation vs. Complete-Case Analysis}
+
+To validate our imputation approach for suppressed death values (<10), we compared results using (a) imputed data (6,042 FL obs, 4,186 WA obs) vs. (b) complete-case analysis dropping all counties with any suppression (840 FL obs, 670 WA obs). Florida's mortality effect remains significant in both: p=0.044 (imputed) vs. p=0.001 (complete-case). Washington remains non-significant in both. This confirms our findings are robust to the imputation methodology.
 
 \vspace{1cm}
 
