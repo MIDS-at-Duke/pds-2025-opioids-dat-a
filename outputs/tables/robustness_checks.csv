@@ -1,5 +1,5 @@
 check,all_controls_coef,all_controls_p,subset_controls_coef,subset_controls_p,conclusion,unweighted_coef,unweighted_p,weighted_coef,weighted_p,mme_p,deaths_p,mme_coef,deaths_coef
-Alternative Control Groups,-15.4M,0.006,-9.9M,0.070,Sensitive,,,,,,,,
-Population Weighting,,,,,Robust,-2.36,0.001,-3.05,0.000,,,,
-Placebo Test (2008),,,,,FAILS,,,,,0.001,0.314,,
-Border Exclusion,,,,,Robust,,,,,0.006,0.003,-16.7M,-2.33
+Alternative Control Groups,-18.1M,0.000,-10.8M,0.022,Sensitive,,,,,,,,
+Population Weighting,,,,,Robust,-2.58,0.000,-3.11,0.000,,,,
+Placebo Test (2008),,,,,FAILS,,,,,0.006,0.968,,
+Border Exclusion,,,,,Robust,,,,,0.000,0.000,-19.5M,-2.51
