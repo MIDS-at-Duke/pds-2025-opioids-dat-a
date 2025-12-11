@@ -82,13 +82,13 @@ We analyzed two state interventions using county-level data (2006-2015) from the
 
 \textbf{What We Found:}
 
-\textbf{Florida's regulatory approach produced sustained reductions.} Opioid shipments dropped by 15.4 million per 100,000 residents immediately, and the decline accelerated over time. Drug deaths fell by 2.36 per 100,000 people. Both effects are statistically significant and sustained through 2015.
+\textbf{Florida's regulatory approach produced sustained reductions.} Opioid shipments dropped by 18.1 million MME per 100,000 residents, and drug deaths fell by 2.58 per 100,000 people ($\approx$500 lives/year). Both effects are statistically significant and sustained through 2015.
 
-\textbf{Washington's voluntary approach showed temporary effects that eroded.} Shipments dipped briefly after the guidelines were released, then reversed course and climbed back up (statistically significant upward trend). Deaths showed no measurable change.
+\textbf{Washington's voluntary approach was mixed.} Deaths dropped significantly ($-1.94$ per 100k), likely capturing adoption in major population centers. However, supply reductions were temporary: shipments dipped briefly but then reversed course and climbed back up (statistically significant upward trend).
 
 \vspace{0.6em}
 
-\textbf{Bottom Line:} All estimates compare Florida and Washington to similar ‘no-policy’ states over the same years, so we can separate policy effects from broader forces like national prescribing trends, recessions, or changing fentanyl supply. Regulatory enforcement produces durable change. Voluntary education creates temporary compliance that fades within 2 years.
+\textbf{Bottom Line:} Regulatory enforcement produces durable, sustained change. Voluntary education can achieve mortality reductions (likely in high-compliance systems), but fails to sustain long-term supply constraints without enforcement.
 
 % ==================== DECISIONS TO BE MADE ====================
 \section*{Decisions To Be Made}
@@ -100,7 +100,7 @@ Based on this analysis, you need to decide:
     
     \textit{Current allocation:} Likely heavy on Continuing Medical Education (CME) courses, guideline dissemination, awareness campaigns.
     
-    \textit{Evidence suggests:} These produce temporary "startle effects" that fade within 2 years. Florida-style enforcement (PDMP audit teams, clinic inspections, license sanctions) produces durable change.
+    \textit{Evidence suggests:} Voluntary guidelines can improve safety/mortality outcomes (likely through better clinical practice), but they fail to sustain supply reductions. Compliance erodes within 2 years without enforcement foundation. Florida-style enforcement (PDMP audit teams, clinic inspections) is required to permanently curb oversupply.
     
     \textit{Recommendation:} Reallocate at least 50\% of "education" budget to active monitoring and enforcement.
     
@@ -157,7 +157,7 @@ In 2010, Florida was the epicenter of the prescription opioid crisis, with "pill
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{../outputs/figures/fl_prepost_did_mortality.png}
-\caption{\textbf{Florida Drug Deaths Declined While Control States Rose.} Red line shows Florida; blue dashed shows controls. After 2010, Florida plateaus/declines while controls climb. Effect: $-2.36$ deaths per 100k (p=0.001) $\approx$ 450 lives saved annually.}
+\caption{\textbf{Florida Drug Deaths Declined While Control States Rose.} Red line shows Florida; blue dashed shows controls. After 2010, Florida plateaus/declines while controls climb. Effect: $-2.58$ deaths per 100k (p$<$0.001) $\approx$ 500 lives saved annually.}
 \end{figure}
 
 \vspace{0.5cm}
@@ -176,7 +176,7 @@ In 2012, Washington released evidence-based "Interagency Guidelines on Prescribi
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{../outputs/figures/wa_prepost_did_shipments.png}
-\caption{\textbf{Washington's Reduction Was Temporary.} Red: Washington; blue dashed: 6 controls (OR, CO, MN, NV, CA, VA). Initial drop: $-8.1$M MME (p=0.046), then \textcolor{red}{upward reversal: $+7.9$M per year} (p$<$0.001). Effect evaporated by 2015.}
+\caption{\textbf{Washington's Reduction Was Temporary.} Red: Washington; blue dashed: 6 controls (OR, CO, MN, NV, CA, VA). Initial drop: $-13.5$M MME (p=0.004), then \textcolor{red}{upward reversal: $+6.4$M per year} (p$<$0.001). Effect evaporated by 2015.}
 \end{figure}
 
 \vspace{0.5cm}
@@ -190,12 +190,12 @@ In 2012, Washington released evidence-based "Interagency Guidelines on Prescribi
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{../outputs/figures/wa_prepost_did_mortality.png}
-\caption{\textbf{Washington Showed No Mortality Benefit.} Red: Washington; blue dashed: controls. No divergence after 2012. Effect: $-1.12$ per 100k, \textbf{not significant} (p=0.12).}
+\caption{\textbf{Washington Showed Significant Mortality Reduction.} Red: Washington; blue dashed: controls. A statistically significant drop occurred after 2012. Effect: $-1.94$ per 100k (p=0.007).}
 \end{figure}
 
 \vspace{0.5cm}
 
-\noindent Mortality trends remain parallel after 2012, providing no evidence that the guidelines improved safety outcomes.
+\noindent Mortality levels dropped significantly ($-1.94$ per 100k), likely capturing the impact in larger population centers where the guidelines were adopted. However, the \textit{trend} did not improve relative to controls (p=0.84), suggesting the benefit was a one-time level shift rather than a sustained trajectory change.
 
 \newpage
 
@@ -203,7 +203,9 @@ In 2012, Washington released evidence-based "Interagency Guidelines on Prescribi
 \section*{Limitations \& Caveats}
 
 \begin{itemize}
-    \item \textbf{Causation requires a strong assumption about trends.} Our analysis assumes that, in the absence of policy, Florida (or Washington) and their control states would have continued to move in parallel. The DiD design helps difference out common shocks that hit everyone at once (e.g., national guidelines, changes in fentanyl supply, recessions), but it \textit{does not} remove confounders that affect Florida differently from controls in the same years (for example, a Florida-only treatment expansion, enforcement change, or unrelated law that coincides with the policy window).
+    \item \textbf{Causation requires a strong assumption about trends.} Our analysis assumes that, in the absence of policy, Florida (or Washington) and their control states would have continued to move in parallel. The DiD design helps difference out common shocks, but Washington exhibits imperfect pre-policy parallel trends with its control group. This divergence suggests unmeasured confounding variables (e.g., demographic shifts in age/sex, economic factors) may influence the results.
+    
+    \item \textbf{Anticipatory behavior in Washington.} We observe a preemptive drop in Washington's shipment volume prior to the official 2012 policy implementation. This suggests providers may have changed prescribing behavior in anticipation of the guidelines, complicating the estimation of the policy's true start date and effect size.
 
     \item \textbf{Substitution to illicit drugs is unmeasured.} If Florida's policy pushed users to heroin, we'd expect deaths to rise — they didn't. But we can't rule out more subtle substitution effects that our data doesn't capture.
     
@@ -317,32 +319,32 @@ Our Florida 2010 MME/capita (1,649) is 1.7-2.3x higher than CDC retail-pharmacy-
 
 \subsection*{Handling Privacy Suppression}
 
-CDC WONDER suppresses death counts $<$10 for privacy protection. Rather than dropping counties with suppressed values (which would severely limit sample size), we implemented an imputation approach:
+CDC WONDER suppresses death counts $<$10 for privacy protection. To ensure counties had sufficient observable mortality data for trend analysis, we examined the relationship between population size and suppression frequency. A clear pattern emerged: counties below $\sim$50,000 population showed consistently high suppression rates, while larger counties rarely had missing values.
 
+We applied two data-driven filters:
 \begin{enumerate}
-    \item \textbf{Calculated average death rate} from counties with observed deaths: 15.2 deaths per 100,000 population
-    \item \textbf{Predicted expected deaths} for suppressed counties: expected = rate $\times$ population / 100,000
-    \item \textbf{Constrained to integers [0, 9]} since suppressed cells by definition contain $<$10 deaths
+    \item \textbf{Population cutoff:} Median population $\geq$ 50,000
+    \item \textbf{Suppression rate cutoff:} $\leq$ 40\% (suppressed in no more than 4 of 10 years)
 \end{enumerate}
 
-This approach preserves county coverage while respecting the known upper bound of suppressed values. We flag all imputed observations for sensitivity analysis. Results are robust to both imputation and complete-case analysis (see Appendix E).
+Counties were kept only if they met both conditions. This reduced suppressed values from 28,838 to 203 ($\sim$0.7\% remain).
+
+For the remaining 203 suppressed observations, we imputed expected deaths using the average death rate (15.2 per 100k) $\times$ population / 100,000, constrained to integers [0, 9].
 
 \subsection*{Final Samples}
 
-\hspace*{1.5em}\textbf{Florida:} 608 counties (FL + 6 controls), 6,042 county-year observations (4,491 imputed)
+After applying population and suppression filters:
 
-\textbf{Washington:} 427 counties (WA + 6 controls), 4,186 county-year observations (3,181 imputed)
+\textbf{Florida:} 145 counties (FL + 6 controls), 1,450 county-year observations (153 imputed)
 
-\vspace{0.3cm}
+\textbf{Washington:} 91 counties (WA + 6 controls), 910 county-year observations (50 imputed)
 
-This represents a 7x increase in sample size compared to dropping counties with any suppressed values, while maintaining analytical integrity. Figure~\ref{fig:pop_vs_deaths} illustrates the relationship between population and deaths used for imputation.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.9\textwidth]{../outputs/figures/population_vs_deaths.png}
-\caption{\textbf{Population vs Deaths: Basis for Imputation.} Left: Strong correlation (R$^2$=0.82) between county population and observed deaths enables prediction of suppressed values. Red dashed line marks the CDC suppression threshold (10 deaths). Right: Imputed values (orange) fill the gap below the threshold, constrained to integers [0, 9].}
-\label{fig:pop_vs_deaths}
-\end{figure}
+This approach creates a cleaner, more reliable analysis panel by:
+\begin{itemize}
+    \item Excluding tiny counties where deaths are genuinely near-zero
+    \item Keeping larger counties where suppression is meaningful
+    \item Minimizing imputation (only 0.7\% of values)
+\end{itemize}
 
 \section*{Appendix D: Full Regression Results}
 
@@ -353,11 +355,11 @@ This represents a 7x increase in sample size compared to dropping counties with 
 \toprule
 \textbf{State} & \textbf{Outcome} & \textbf{Level Change} & \textbf{p-value} & \textbf{Trend Change} & \textbf{p-value} \\
 \midrule
-Florida & Shipments (MME/100k) & $-15.4$M & 0.006** & $-25.6$M & $<$0.001*** \\
-Florida & Deaths (per 100k) & $-2.36$ & 0.001** & $-1.11$ & 0.022* \\
+Florida & Shipments (MME/100k) & $-18.1$M & $<$0.001*** & $-20.0$M & $<$0.001*** \\
+Florida & Deaths (per 100k) & $-2.58$ & $<$0.001*** & $-0.59$ & 0.219 \\
 \midrule
-Washington & Shipments (MME/100k) & $-8.1$M & 0.046* & $+7.9$M & $<$0.001*** \\
-Washington & Deaths (per 100k) & $-1.18$ & 0.102 & $-0.05$ & 0.928 \\
+Washington & Shipments (MME/100k) & $-13.5$M & 0.004** & $+6.4$M & $<$0.001*** \\
+Washington & Deaths (per 100k) & $-1.94$ & 0.007** & $-0.10$ & 0.843 \\
 \bottomrule
 \multicolumn{6}{l}{\footnotesize *p$<$0.05, **p$<$0.01, ***p$<$0.001. Standard errors clustered at county level.}
 \end{tabular}
