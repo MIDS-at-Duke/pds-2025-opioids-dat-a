@@ -28,20 +28,20 @@ This repository contains a comprehensive data science analysis evaluating the ef
 
 | Outcome | Effect Size | Statistical Significance | Interpretation |
 |---------|-------------|-------------------------|----------------|
-| **Opioid Shipments** | -15.4M MME/100k (immediate)<br>-25.6M MME/year (trend) | p=0.006<br>p<0.001 | Sharp drop, accelerating decline |
-| **Drug Deaths** | -2.36 per 100k | p=0.001 | ≈450 lives saved annually |
+| **Opioid Shipments** | -18.1M MME/100k (immediate)<br>-20.0M MME/year (trend) | p<0.001<br>p<0.001 | Sharp drop, accelerating decline |
+| **Drug Deaths** | -2.58 per 100k | p<0.001 | ≈500 lives saved annually |
 
-### Washington's Voluntary Approach ⚠️ **Limited Effectiveness**
+### Washington's Voluntary Approach ⚠️ **Mixed Results**
 
 | Outcome | Effect Size | Statistical Significance | Interpretation |
 |---------|-------------|-------------------------|----------------|
-| **Opioid Shipments** | -8.1M MME/100k (initial)<br>**+7.9M MME/year (reversal)** | p=0.046<br>p<0.001 | Temporary dip, then upward reversal |
-| **Drug Deaths** | -1.18 per 100k | p=0.10 (n.s.) | No detectable impact |
+| **Opioid Shipments** | -13.5M MME/100k (initial)<br>**+6.4M MME/year (reversal)** | p=0.004<br>p<0.001 | Temporary dip, then upward reversal |
+| **Drug Deaths** | -1.94 per 100k | p=0.007 | Reduction in urban centers, but supply failed |
 
 ### Bottom Line
 
 ✅ **Regulatory enforcement produces durable change**  
-⚠️ **Voluntary education creates temporary compliance that erodes**
+⚠️ **Voluntary education improves mortality but fails to control supply**
 
 ---
 
@@ -123,7 +123,7 @@ pds-2025-opioids-dat-a/
 
 ✅ **MME Calculation Validated:** Florida 2010 MME/capita (~1,649) is 1.7-2.3x higher than CDC retail-only estimates (729-994), as expected since we include hospital/practitioner shipments per CDC guidance for supply-side policy evaluation.
 
-✅ **Privacy Suppression Handled:** CDC suppresses death counts <10. We impute expected values using average death rate (15.2/100k) × population, constrained to integers [0,9]. This preserves 7x more counties than dropping missing data.
+✅ **Privacy Suppression Handled:** CDC suppresses death counts <10. We applied data-driven filters (population ≥50k, suppression rate ≤40%) reducing suppressed values from 28,838 to 203 (0.7%). Remaining values imputed using avg death rate × population, constrained to [0,9].
 
 ✅ **Filters Applied:**
 - Transaction type: Sales only (`TRANSACTION_CODE = 'S'`)
