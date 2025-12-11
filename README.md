@@ -213,7 +213,7 @@ If you use this analysis, please cite:
 ```bibtex
 @techreport{tafaj2025opioid,
   title={Evaluating Opioid Policy Interventions: Evidence from Florida and Washington},
-  author={Tafaj, Tea and Puri, Diwas and Zhang, Austin},
+  author={Tafaj, Tea and Puri, Diwas and Zhang, Xinhao},
   institution={Duke University, MIDS Program},
   year={2025},
   type={Data Science Memo},
@@ -225,7 +225,7 @@ If you use this analysis, please cite:
 
 ## 👥 Authors
 
-**Tea Tafaj** | **Diwas Puri** | **Austin Zhang**  
+**Tea Tafaj** | **Diwas Puri** | **Xinhao Zhang**  
 Duke University Master of Interdisciplinary Data Science (MIDS)  
 IDS 720: Practical Data Science (Fall 2024)
 
