@@ -96,7 +96,7 @@ pds-2025-opioids-dat-a/
 
 ✅ **MME Calculation Validated:** Florida 2010 MME/capita (~1,649) is 1.7-2.3x higher than CDC retail-only estimates (729-994), as expected since we include hospital/practitioner shipments per CDC guidance for supply-side policy evaluation.
 
-✅ **Privacy Suppression Handled:** Counties with <10 deaths suppressed by CDC. We dropped counties with ANY missing pre-period data (rather than imputing) to preserve DiD validity.
+✅ **Privacy Suppression Handled:** CDC suppresses death counts <10. We impute expected values using average death rate (15.2/100k) × population, constrained to integers [0,9]. This preserves 7x more counties than dropping missing data.
 
 ✅ **Filters Applied:**
 - Transaction type: Sales only (`TRANSACTION_CODE = 'S'`)
