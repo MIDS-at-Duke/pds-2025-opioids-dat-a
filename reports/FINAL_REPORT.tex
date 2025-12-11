@@ -34,7 +34,7 @@
 
 % --- MEMO HEADER ---
 \noindent
-\textbf{FROM:} Tea Tafaj, Diwas Puri, Austin Zhang (Duke MIDS Data Science Team)\\
+\textbf{FROM:} Tea Tafaj, Diwas Puri, Xinhao Zhang (Duke MIDS Data Science Team)\\
 \textbf{RE:} Which Opioid Policies Actually Work? Evidence from Florida \& Washington\\
 \textbf{DATE:} \today
 
@@ -45,16 +45,22 @@
 % Stakeholder context box
 \noindent\fbox{%
     \parbox{0.97\textwidth}{%
-        \textbf{Stakeholder:} State Health Policy Director with public health background, limited statistical training. Needs actionable evidence on regulatory vs. voluntary opioid interventions to inform budget allocation decisions.
-    }%
+        \textbf{Stakeholder:} The State Health Policy Director that oversees opioid prevention strategy and budget allocation. 
+        The stakeholder has strong public health expertise but limited statistical training, so results must be interpretable without technical jargon.
+
+        \vspace{0.15cm}
+        \textbf{Primary Need:} Clear evidence on whether regulatory interventions produce better outcomes than voluntary prescribing guidelines. 
+        The stakeholder needs to decide how to allocate funding in the next legislative cycle—specifically, whether to expand enforcement capacity or continue investing in provider education.
+        }%
 }
+
 
 \vspace{0.5cm}
 
 % ==================== EXECUTIVE SUMMARY ====================
 \section*{Executive Summary}
 
-\textbf{The Problem:} By 2010, prescription opioid overdoses had become a leading cause of preventable death in the United States, killing over 16,000 Americans annually. States needed evidence on which policy approaches could effectively reduce both oversupply and mortality without simply shifting users to illicit drugs.
+\hspace*{1.5em}\textbf{The Problem:} By 2010, prescription opioid overdoses had become a leading cause of preventable death in the United States, killing over 16,000 Americans annually. States needed evidence on which policy approaches could effectively reduce both oversupply and mortality without simply shifting users to illicit drugs.
 
 \textbf{The Question:} Do strict regulatory interventions work better than voluntary prescribing guidelines for reducing opioid harm?
 
@@ -199,7 +205,7 @@ In 2012, Washington released evidence-based "Interagency Guidelines on Prescribi
 
 \section*{Appendix A: Technical Methodology}
 
-\textbf{Study Design:} Difference-in-differences (DiD) regression with county fixed effects and clustered standard errors.
+\hspace*{1.5em}\textbf{Study Design:} Difference-in-differences (DiD) regression with county fixed effects and clustered standard errors.
 
 \textbf{Why DiD?} This method compares how outcomes changed in treatment states (FL, WA) versus control states before and after the policy. If treatment and control states were trending similarly before the policy ("parallel trends"), then post-policy divergence can be attributed to the intervention. This isolates the policy effect from national trends (e.g., changing fentanyl availability) that affected all states equally. However, DiD still cannot rule out all confounding; if Florida experienced other Florida-only changes at the same time as the pill-mill crackdown, those could still bias our estimates.
 
@@ -351,7 +357,7 @@ To validate our imputation approach for suppressed death values (<10), we compar
 
 \vspace{0.3cm}
 
-\noindent\textbf{Prepared by:} Tea Tafaj, Diwas Puri, Austin Zhang\\
+\noindent\textbf{Prepared by:} Tea Tafaj, Diwas Puri, Xinhao Zhang\\
 \textbf{Course:} Practical Data Science (IDS 720), Duke University\\
 \textbf{Code \& Data:} \url{https://github.com/MIDS-at-Duke/pds-2025-opioids-dat-a}
 
