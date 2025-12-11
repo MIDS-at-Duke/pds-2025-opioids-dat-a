@@ -56,12 +56,14 @@ pds-2025-opioids-dat-a/
 │
 ├── analysis/                   # Core analysis scripts
 │   ├── run_did_regressions.py  # Main DiD models
+│   ├── plot_pop_vs_deaths.py   # Population vs deaths plot
 │   ├── fl_did_trends.py        # Florida visualizations
 │   ├── wa_did_trends.py        # Washington visualizations
 │   └── robustness_checks.py    # Sensitivity analyses
 │
 ├── src/                        # Data processing
-│   └── build_panel.py          # Merge datasets → analysis panels
+│   ├── build_panel.py          # Merge datasets → analysis panels
+│   └── requirements.txt        # Packages required
 │
 ├── notebooks/                  # Data preprocessing (Jupyter)
 │   ├── Extract_ARCOS_from_ZIP.ipynb
@@ -70,16 +72,41 @@ pds-2025-opioids-dat-a/
 │   └── Preprocessing_US_VitalStatistics.ipynb
 │
 ├── data/
-│   ├── raw/                    # Original data (not in repo - too large)
+│   ├── raw/                    # Original data (not all in repo - too large)
+│       ├── US_VitalStatistics/ # Folder for VitalStatistics data
+│       ├── arcos_filtered_2006_2015.parquet
+│       └── us.1969_2023.singleages.through89.90plus.adjusted.txt.gz
 │   └── processed/              # Analysis-ready datasets
 │       ├── fl_panel_clean.parquet  (840 rows, 84 counties)
-│       └── wa_panel_clean.parquet  (670 rows, 67 counties)
+│       ├── wa_panel_clean.parquet  (670 rows, 67 counties)
+│       ├── arcos_county_year_with_fips.parquet
+│       ├── opioid_panel_2006_2015.parquet
+│       ├── us_population_condensed_2006_2015.parquet
+│       └── vital_stats_deaths_2006_2015.parquet 
 │
 ├── outputs/
 │   ├── figures/                # DiD plots with CI
+│       ├── fl_prepost_did_mortality.png
+│       ├── fl_prepost_did_shipments.png
+│       ├── population_vs_deaths.png
+│       ├── population_vs_deaths_scatter.png
+│       ├── wa_prepost_did_mortality.png
+│       └── wa_prepost_did_shipments.png
 │   └── tables/                 # Regression results (CSV)
+│       ├── did_comparison_original_vs_imputed.csv
+│       ├── did_regression_results.csv
+│       ├── did_results_FL_WA.csv
+│       ├── pre_post_mean_deaths_FL_WA.csv
+│       └── robustness_checks.csv
 │
-└── documentation/              # Project planning docs
+├── reference/
+│   └── fips.txt
+├── documentation/              # Project planning docs
+│   ├── Backwards_Design_Plan_MIDS_Project.md
+│   ├── Control_States_Justification.docx
+│   ├── PDS_ProjectSummary.pdf
+│   ├── Rough_Draft_Policy_Memo.md
+│   └── Rough_Draft_Policy_Memo.pdf
 ```
 
 ---
@@ -186,7 +213,7 @@ If you use this analysis, please cite:
 ```bibtex
 @techreport{tafaj2025opioid,
   title={Evaluating Opioid Policy Interventions: Evidence from Florida and Washington},
-  author={Tafaj, Tea and Puri, Diwas and Zhang, Austin},
+  author={Tafaj, Tea and Puri, Diwas and Zhang, Xinhao},
   institution={Duke University, MIDS Program},
   year={2025},
   type={Data Science Memo},
@@ -198,7 +225,7 @@ If you use this analysis, please cite:
 
 ## 👥 Authors
 
-**Tea Tafaj** | **Diwas Puri** | **Austin Zhang**  
+**Tea Tafaj** | **Diwas Puri** | **Xinhao Zhang**  
 Duke University Master of Interdisciplinary Data Science (MIDS)  
 IDS 720: Practical Data Science (Fall 2024)
 
