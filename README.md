@@ -5,7 +5,7 @@
 
 > **TL;DR:** Difference-in-differences analysis revealing that Florida's 2010 regulatory crackdown reduced opioid deaths by 2.36 per 100k (≈450 lives/year), while Washington's 2012 voluntary guidelines showed temporary effects that reversed within 2 years.
 
----
+--
 
 ## 📋 Project Overview
 
@@ -20,21 +20,21 @@ This repository contains a comprehensive data science analysis evaluating the ef
 
 **Key Deliverable:** [**Policy Memo (PDF)**](reports/FINAL_REPORT.pdf) - Data Science Memo format for state health policy directors
 
----
+--
 
 ## 🎯 Key Findings
 
 ### Florida's Regulatory Approach ✅ **Highly Effective**
 
 | Outcome | Effect Size | Statistical Significance | Interpretation |
-|---------|-------------|-------------------------|----------------|
+|-----|-------|-------------|--------|
 | **Opioid Shipments** | -18.1M MME/100k (immediate)<br>-20.0M MME/year (trend) | p<0.001<br>p<0.001 | Sharp drop, accelerating decline |
 | **Drug Deaths** | -2.58 per 100k | p<0.001 | ≈500 lives saved annually |
 
 ### Washington's Voluntary Approach ⚠️ **Mixed Results**
 
 | Outcome | Effect Size | Statistical Significance | Interpretation |
-|---------|-------------|-------------------------|----------------|
+|-----|-------|-------------|--------|
 | **Opioid Shipments** | -13.5M MME/100k (initial)<br>**+6.4M MME/year (reversal)** | p=0.004<br>p<0.001 | Temporary dip, then upward reversal |
 | **Drug Deaths** | -1.94 per 100k | p=0.007 | Reduction in urban centers, but supply failed |
 
@@ -43,7 +43,7 @@ This repository contains a comprehensive data science analysis evaluating the ef
 ✅ **Regulatory enforcement produces durable change**  
 ⚠️ **Voluntary education improves mortality but fails to control supply**
 
----
+--
 
 ## 📁 Repository Structure
 
@@ -109,12 +109,12 @@ pds-2025-opioids-dat-a/
 │   └── Rough_Draft_Policy_Memo.pdf
 ```
 
----
+--
 
 ## 🔬 Data Sources
 
 | Source | Description | Coverage | Size |
-|--------|-------------|----------|------|
+|----|-------|-----|---|
 | **DEA ARCOS** | Complete census of controlled substance shipments | 218.5M transactions, 2006-2015 | ~228GB raw |
 | **CDC WONDER** | Vital statistics mortality data | Drug-induced deaths (ICD-10: X40-X44, X60-X64, Y10-Y14) | 2,569 county-years |
 | **U.S. Census** | Annual county population estimates | Denominator for per-capita rates | 31K county-years |
@@ -130,7 +130,7 @@ pds-2025-opioids-dat-a/
 - Buyer type: Retail endpoints only (pharmacies, hospitals, practitioners)
 - Outliers: Excluded MME > 1M per transaction
 
----
+--
 
 ## 🚀 Quick Start
 
@@ -166,7 +166,7 @@ python analysis/robustness_checks.py
 
 📈 **Tables:** `outputs/tables/*.csv`
 
----
+--
 
 ## 📊 Methodology
 
@@ -191,12 +191,12 @@ python analysis/robustness_checks.py
 ✅ Similar demographics & healthcare systems  
 ✅ Complete pre-period data availability  
 
----
+--
 
 ## 🔍 Robustness Checks (Appendix E)
 
 | Test | Result | Interpretation |
-|------|--------|----------------|
+|---|----|--------|
 | **Alternative Control Groups** | Effect weaker with 3 vs 6 controls | Justifies using broader control group |
 | **Population Weighting** | Effect strengthens (−3.05 vs −2.36) | Not driven by small counties |
 | **Placebo Test (2008)** | Deaths: no effect; Shipments: pre-trend | Mortality findings robust; shipments caveat |
@@ -204,7 +204,7 @@ python analysis/robustness_checks.py
 
 **Conclusion:** Mortality findings are robust across all specifications. Shipment results should be interpreted with caution due to pre-existing trends.
 
----
+--
 
 ## 📝 Citation
 
@@ -221,7 +221,7 @@ If you use this analysis, please cite:
 }
 ```
 
----
+--
 
 ## 👥 Authors
 
@@ -229,13 +229,13 @@ If you use this analysis, please cite:
 Duke University Master of Interdisciplinary Data Science (MIDS)  
 IDS 720: Practical Data Science (Fall 2024)
 
----
+--
 
 ## 📄 License
 
 MIT License - See [LICENSE](LICENSE) for details
 
----
+--
 
 ## 🙏 Acknowledgments
 
@@ -245,7 +245,7 @@ MIT License - See [LICENSE](LICENSE) for details
   - CDC Opioid Dispensing Rates: [cdc.gov/drugoverdose](https://www.cdc.gov/drugoverdose/rxrate-maps/county.html)
   - ARCOS API Issue: [wpinvestigative/arcos-api#1](https://github.com/wpinvestigative/arcos-api/issues/1)
 
----
+--
 
 **Last Updated:** December 2024  
 

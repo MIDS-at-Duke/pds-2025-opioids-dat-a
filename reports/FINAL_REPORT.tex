@@ -32,7 +32,7 @@
 
 \begin{document}
 
-% --- MEMO HEADER ---
+% -- MEMO HEADER --
 \noindent
 \textbf{FROM:} Tea Tafaj, Diwas Puri, Xinhao Zhang (Duke MIDS Data Science Team)\\
 \textbf{RE:} Which Opioid Policies Actually Work? Evidence from Florida \& Washington\\
@@ -373,33 +373,27 @@ To validate our main findings, we conducted four sensitivity analyses:
 
 \textbf{1. Alternative Control Groups}
 
-We re-estimated Florida's DiD using only three southeastern controls (GA, AL, SC) versus all six controls (GA, AL, SC, NC, TN, MS). Results: shipment reduction $-9.9$M (p=0.070) with 3 controls vs. $-15.4$M (p=0.006) with 6 controls. The weaker effect with fewer controls suggests our main findings benefit from the broader control group, though the effect remains in the expected direction. This highlights the importance of using multiple control states to improve statistical power.
+We re-estimated Florida's DiD using only three southeastern controls (GA, AL, SC) versus all six controls (GA, AL, SC, NC, TN, MS). Results: shipment reduction $-10.8$M (p=0.022) with 3 controls vs. $-18.1$M (p$<$0.001) with 6 controls. The effect remains significant but weaker with fewer controls, highlighting the importance of using multiple control states to improve statistical power.
 
 \vspace{0.3cm}
 
 \textbf{2. Population-Weighted Analysis}
 
-Our main analysis uses county fixed effects with implicit equal weighting. We re-ran regressions weighting by county population to give more influence to larger counties. Florida's mortality effect strengthened: $-3.05$ per 100k (p$<$0.001) weighted vs. $-2.36$ (p=0.001) unweighted. This confirms results are not driven by small counties and, if anything, are \textit{stronger} in population-weighted specifications.
+Our main analysis uses county fixed effects with implicit equal weighting. We re-ran regressions weighting by county population to give more influence to larger counties. Florida's mortality effect strengthened: $-3.11$ per 100k (p$<$0.001) weighted vs. $-2.58$ (p$<$0.001) unweighted. This confirms results are not driven by small counties and, if anything, are \textit{stronger} in population-weighted specifications.
 
 \vspace{0.3cm}
 
 \textbf{3. Placebo Test (Pre-Policy Years)}
 
-We tested for "effects" in 2008 (a year when no policy existed) using only 2006-2009 data. Results: MME effect p=0.001 (significant), deaths effect p=0.314 (not significant). The significant MME placebo effect suggests some pre-existing divergence in shipment trends between Florida and controls, which partially violates the parallel trends assumption for shipments. However, the mortality placebo test passes, supporting parallel trends for our primary outcome of interest (deaths).
+We tested for "effects" in 2008 (a year when no policy existed) using only 2006-2009 data. Results: MME effect p=0.006 (significant), deaths effect p=0.968 (not significant). The significant MME placebo effect suggests some pre-existing divergence in shipment trends between Florida and controls. However, the mortality placebo test passes (p=0.968), strongly supporting parallel trends for our primary outcome of interest (deaths).
 
 \vspace{0.3cm}
 
 \textbf{4. Exclusion of Border Counties}
 
-To address potential spillover effects (e.g., Georgia residents crossing to Florida for prescriptions), we excluded 17 Florida counties bordering Georgia or Alabama. Results remained robust: shipments $-16.7$M (p=0.006), deaths $-2.33$ (p=0.003). The slightly stronger effects after exclusion suggest spillover is minimal and our main findings are not contaminated by cross-border dynamics.
+To address potential spillover effects (e.g., Georgia residents crossing to Florida for prescriptions), we excluded 17 Florida counties bordering Georgia or Alabama. Results remained robust: shipments $-19.5$M (p$<$0.001), deaths $-2.51$ (p$<$0.001). The slightly stronger effects after exclusion suggest spillover is minimal and our main findings are not contaminated by cross-border dynamics.
 
 \textbf{Conclusion:} Main findings are largely robust, with two important caveats: (1) Using only 3 control states weakens statistical power, justifying our choice of 6 controls, and (2) The shipment placebo test reveals some pre-existing divergence, suggesting caution in interpreting the shipment results as purely causal. The mortality findings remain robust across all specifications.
-
-\vspace{0.3cm}
-
-\textbf{5. Imputation vs. Complete-Case Analysis}
-
-To validate our imputation approach for suppressed death values (<10), we compared results using (a) imputed data (6,042 FL obs, 4,186 WA obs) vs. (b) complete-case analysis dropping all counties with any suppression (840 FL obs, 670 WA obs). Florida's mortality effect remains significant in both: p=0.044 (imputed) vs. p=0.001 (complete-case). Washington remains non-significant in both. This confirms our findings are robust to the imputation methodology.
 
 \vspace{1cm}
 
