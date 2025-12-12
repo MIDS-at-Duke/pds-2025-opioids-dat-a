@@ -84,7 +84,9 @@ We analyzed two state interventions using county-level data (2006-2015) from the
 
 \textbf{Florida's regulatory approach produced sustained reductions.} Opioid shipments dropped by 18.1 million MME per 100,000 residents, and drug deaths fell by 2.58 per 100,000 people ($\approx$500 lives/year). Both effects are statistically significant and sustained through 2015.
 
-\textbf{Washington's voluntary approach was mixed.} Deaths dropped significantly ($-1.94$ per 100k), likely capturing adoption in major population centers. However, supply reductions were temporary: shipments dipped briefly but then reversed course and climbed back up (statistically significant upward trend).
+\vspace{0.6em}
+
+\textbf{Washington's voluntary approach was mixed.} Mortality declined at the time of implementation (-1.94 per 100k, p=0.007), but the post-policy trend did not differ significantly from controls (p=0.84), indicating a one-time level shift rather than a sustained effect.
 
 \vspace{0.6em}
 
@@ -176,7 +178,7 @@ In 2012, Washington released evidence-based "Interagency Guidelines on Prescribi
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{../outputs/figures/wa_prepost_did_shipments.png}
-\caption{\textbf{Washington's Reduction Was Temporary.} Red: Washington; blue dashed: 6 controls (OR, CO, MN, NV, CA, VA). Initial drop: $-13.5$M MME (p=0.004), then \textcolor{red}{upward reversal: $+6.4$M per year} (p$<$0.001). Effect evaporated by 2015.}
+\caption{\textbf{Washington's Reduction Was Temporary.} Red: Washington; blue dashed: 6 controls (OR, CO, MN, NV, CA, VA). Initial drop: −13.5M MME (p = 0.004), followed by an \textcolor{red}{upward change in trend of +6.4M MME per year} relative to the pre-policy slope ($p < 0.001$). Effect evaporated by 2015.}
 \end{figure}
 
 \vspace{0.5cm}
@@ -190,7 +192,7 @@ In 2012, Washington released evidence-based "Interagency Guidelines on Prescribi
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{../outputs/figures/wa_prepost_did_mortality.png}
-\caption{\textbf{Washington Showed Significant Mortality Reduction.} Red: Washington; blue dashed: controls. A statistically significant drop occurred after 2012. Effect: $-1.94$ per 100k (p=0.007).}
+\caption{\textbf{Washington Showed a One-Time Mortality Reduction.} Red: Washington; blue dashed: controls. A statistically significant drop occurred after 2012. Effect: $-1.94$ per 100k (p=0.007).}
 \end{figure}
 
 \vspace{0.5cm}
@@ -203,7 +205,7 @@ In 2012, Washington released evidence-based "Interagency Guidelines on Prescribi
 \section*{Limitations \& Caveats}
 
 \begin{itemize}
-    \item \textbf{Causation requires a strong assumption about trends.} Our analysis assumes that, in the absence of policy, Florida (or Washington) and their control states would have continued to move in parallel. The DiD design helps difference out common shocks, but Washington exhibits imperfect pre-policy parallel trends with its control group. This divergence suggests unmeasured confounding variables (e.g., demographic shifts in age/sex, economic factors) may influence the results.
+    \item \textbf{Causation requires a strong assumption about trends.} Our analysis assumes that, in the absence of policy, Florida (or Washington) and their control states would have continued to move in parallel. The DiD design helps difference out common shocks, but Washington exhibits imperfect parallel trends in shipments relative to its control group. This divergence suggests unmeasured confounding variables (e.g., demographic shifts in age/sex, economic factors) may influence the results.
     
     \item \textbf{Anticipatory behavior in Washington.} We observe a preemptive drop in Washington's shipment volume prior to the official 2012 policy implementation. This suggests providers may have changed prescribing behavior in anticipation of the guidelines, complicating the estimation of the policy's true start date and effect size.
 
