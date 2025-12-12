@@ -143,7 +143,7 @@ In 2010, Florida was the epicenter of the prescription opioid crisis, with "pill
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{../outputs/figures/fl_prepost_did_shipments.png}
-\caption{\textbf{Florida Opioid Shipments Dropped Sharply After 2010 Policy.} Red line shows Florida; blue dashed line shows 6 control states (GA, AL, SC, NC, TN, MS). Vertical line marks 2010. Immediate drop: 15.4M MME per 100k (p=0.006). Accelerating decline: $-25.6$M per year (p$<$0.001).}
+\caption{\textbf{Florida Opioid Shipments Dropped Sharply After 2010 Policy.} Red line shows Florida; blue dashed line shows 6 control states (GA, AL, SC, NC, TN, MS). Vertical line marks 2010. Immediate drop: $-18.1$M MME per 100k (p$<$0.001). Accelerating decline: $-20.0$M per year (p$<$0.001).}
 \end{figure}
 
 \vspace{0.5cm}
@@ -331,6 +331,10 @@ Counties were kept only if they met both conditions. This reduced suppressed val
 
 For the remaining 203 suppressed observations, we imputed expected deaths using the average death rate (15.2 per 100k) $\times$ population / 100,000, constrained to integers [0, 9].
 
+\vspace{0.3cm}
+
+\noindent \textbf{Note on Alaska:} Per the project guidance, Alaska was excluded from the analysis due to county designation changes around 2010 (and it is not included in our treated/control state sets).
+
 \subsection*{Final Samples}
 
 After applying population and suppression filters:
@@ -394,6 +398,31 @@ We tested for "effects" in 2008 (a year when no policy existed) using only 2006-
 To address potential spillover effects (e.g., Georgia residents crossing to Florida for prescriptions), we excluded 17 Florida counties bordering Georgia or Alabama. Results remained robust: shipments $-19.5$M (p$<$0.001), deaths $-2.51$ (p$<$0.001). The slightly stronger effects after exclusion suggest spillover is minimal and our main findings are not contaminated by cross-border dynamics.
 
 \textbf{Conclusion:} Main findings are largely robust, with two important caveats: (1) Using only 3 control states weakens statistical power, justifying our choice of 6 controls, and (2) The shipment placebo test reveals some pre-existing divergence, suggesting caution in interpreting the shipment results as purely causal. The mortality findings remain robust across all specifications.
+
+\section*{Appendix F: Pre-Post Summary}
+
+This table reports simple state-year means for the treated state versus the average of its control states (pre vs. post). It is included for intuition; causal interpretation relies on the DiD results.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lllrcc}
+\toprule
+\textbf{Case} & \textbf{Group} & \textbf{Period} & \textbf{N (state-years)} & \textbf{Mean Shipments} & \textbf{Mean Death Rate} \\
+ &  &  &  & \textbf{(MME/100k, millions)} & \textbf{(per 100k)} \\
+\midrule
+FL & Controls (avg) & Pre  & 24 & 86.2 & 12.16 \\
+FL & Controls (avg) & Post & 36 & 107.2 & 13.62 \\
+FL & Florida        & Pre  & 4  & 116.0 & 15.38 \\
+FL & Florida        & Post & 6  & 112.4 & 14.04 \\
+\midrule
+WA & Controls (avg) & Pre  & 36 & 78.0 & 11.97 \\
+WA & Controls (avg) & Post & 24 & 78.2 & 13.24 \\
+WA & Washington     & Pre  & 6  & 97.8 & 13.68 \\
+WA & Washington     & Post & 4  & 86.0 & 13.78 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \vspace{1cm}
 
